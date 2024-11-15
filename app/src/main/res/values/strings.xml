@@ -10,10 +10,19 @@
     <string name="spinner">Spinner</string>
     <string name="manage_items">Manage Items</string>
 
+    <string name="sign_up">Sign Up</string>
+
     <string name="username">Username</string>
     <string name="email">Email</string>
+    <string name="send_verification_email">Send Verification Email</string>
+    <string name="send_verification_code">Send Verification Code</string>
     <string name="password">Password</string>
     <string name="create_account">Create Account</string>
+
+    <string name="verification_code_title">Email Verification</string>
+    <string name="verification_code_instructions">A verification code has been sent to your email. Please enter it below:</string>
+    <string name="enter_verification_code">Enter verification code</string>
+    <string name="verify_button">Verify</string>
 
     <string-array name="categories_array">
         <item>Books</item>
