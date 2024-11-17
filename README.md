@@ -1,1 +1,1 @@
-Hello, this is the base for Sprint 1. The welcome page when user first opens our app. When u design your part, branch off of this branch develop your files in there
+Hello, this is the base for Sprint 1. The welcome page when the user first opens our app. When you design your part, branch off of this branch and develop your files there. P.S.: everything you need is in the ProjectStarter folder. Good luck!
