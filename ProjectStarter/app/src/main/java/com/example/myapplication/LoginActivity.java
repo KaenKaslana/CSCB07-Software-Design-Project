@@ -25,18 +25,13 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login); // Ensure the layout file is updated as activity_login.xml
-
-        // Initialize Firebase Auth
+        setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
-
-        // References to UI elements
         EditText emailEditText = findViewById(R.id.loginEmail);
         EditText passwordEditText = findViewById(R.id.loginPassword);
         Button loginButton = findViewById(R.id.loginButton);
 
         Button fr = findViewById(R.id.ForgotPasswordButton);
-        // Login button click listener
         fr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,23 +46,22 @@ public class LoginActivity extends AppCompatActivity {
                 String password = passwordEditText.getText().toString();
 
                 if (!email.isEmpty() && !password.isEmpty()) {
-                    mAuth.createUserWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        // Sign in success
                                         Log.d(TAG, "createUserWithEmail:success");
                                         Toast.makeText(LoginActivity.this, "Successfully Logged In", Toast.LENGTH_SHORT).show();
                                         FirebaseUser user = mAuth.getCurrentUser();
-                                    } else {
-                                        // Sign in fails
+                                    }
+                                    else {
                                         Log.e(TAG, "createUserWithEmail:failure", task.getException());
                                         Toast.makeText(LoginActivity.this, "Wrong Email/Password: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
-                } else {
+                }
+                else {
                     Toast.makeText(LoginActivity.this, "Email and Password cannot be empty", Toast.LENGTH_SHORT).show();
                 }
             }
