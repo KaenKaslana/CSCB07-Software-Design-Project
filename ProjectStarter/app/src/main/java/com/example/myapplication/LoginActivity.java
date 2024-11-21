@@ -30,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
         EditText emailEditText = findViewById(R.id.loginEmail);
         EditText passwordEditText = findViewById(R.id.loginPassword);
         Button loginButton = findViewById(R.id.loginButton);
-
         Button fr = findViewById(R.id.ForgotPasswordButton);
         fr.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,18 +43,28 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
-
                 if (!email.isEmpty() && !password.isEmpty()) {
-                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    mAuth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        Log.d(TAG, "createUserWithEmail:success");
-                                        Toast.makeText(LoginActivity.this, "Successfully Logged In", Toast.LENGTH_SHORT).show();
                                         FirebaseUser user = mAuth.getCurrentUser();
-                                    }
-                                    else {
-                                        Log.e(TAG, "createUserWithEmail:failure", task.getException());
+                                        if (user != null && user.isEmailVerified()) {
+                                            //Login success
+                                            Log.d(TAG, "signInWithEmail:success");
+                                            Toast.makeText(LoginActivity.this, "Successfully Logged In", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        } else if (user != null) {
+                                            //Email not verified
+                                            Toast.makeText(LoginActivity.this, "Please verify your email before logging in.", Toast.LENGTH_LONG).show();
+                                            mAuth.signOut();
+                                        }
+                                    } else {
+                                        //Login failed
+                                        Log.e(TAG, "signInWithEmail:failure", task.getException());
                                         Toast.makeText(LoginActivity.this, "Wrong Email/Password: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 }
