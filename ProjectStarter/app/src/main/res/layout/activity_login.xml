@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <!--match parent for layout_width matches width of screen-->
+    <!--       constrainvertical bias 0.2 20% below the top-->
+    <EditText
+        android:id="@+id/loginEmail"
+        android:layout_width="0dp"
+        android:layout_marginHorizontal="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+
+        android:hint="email"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:inputType="textEmailAddress"/>
+
+    <EditText
+        android:id="@+id/loginPassword"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="20dp"
+        android:hint="password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginEmail"
+        android:inputType="textPassword"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/loginButton"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="#009999"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:text="Login"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ForgotPasswordButton"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/ForgotPasswordButton"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="#009999"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:text="Forgot Password"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginPassword"
+        tools:layout_editor_absoluteX="50dp" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

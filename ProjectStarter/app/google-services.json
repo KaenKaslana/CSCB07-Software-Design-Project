@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1022838727883",
+    "project_id": "cscb007-software-design",
+    "storage_bucket": "cscb007-software-design.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1022838727883:android:b6495d281c420d0632674e",
+        "android_client_info": {
+          "package_name": "com.example.b07demosummer2024"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQiJTJduxTBlS8CZxME7_5Q24rmUHcpdE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1022838727883:android:21a50b504421b4de32674e",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQiJTJduxTBlS8CZxME7_5Q24rmUHcpdE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
