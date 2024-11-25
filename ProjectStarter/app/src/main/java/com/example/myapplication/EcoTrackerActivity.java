@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -48,7 +49,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
         });
 
         btnStoreInput.setOnClickListener(v -> handleStoreInput());
-        btnCalculateEmission.setOnClickListener(v -> calculateEmission());
+        btnCalculateEmission.setOnClickListener(v -> navigateToEmissionPage());
     }
 
     private void initUIComponents() {
@@ -278,7 +279,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                     String distanceDrivenStr = etDistanceOrDuration.getText().toString();
                     if (!distanceDrivenStr.isEmpty()) {
                         try {
-                            int distanceDriven = Integer.parseInt(distanceDrivenStr);
+                            double distanceDriven = Double.parseDouble(distanceDrivenStr);
                             boolean isStored = inputStorageManager.storeUserInput("transportation", "car", distanceDriven);
                             showStoreInputResult(isStored);
                         } catch (NumberFormatException e) {
@@ -305,7 +306,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                     String cyclingDistanceStr = etDistanceOrDuration.getText().toString();
                     if (!cyclingDistanceStr.isEmpty()) {
                         try {
-                            int cyclingDistance = Integer.parseInt(cyclingDistanceStr);
+                            double cyclingDistance = Double.parseDouble(cyclingDistanceStr);
                             boolean isStored = inputStorageManager.storeUserInput("transportation", "cycling_walking", cyclingDistance);
                             showStoreInputResult(isStored);
                         } catch (NumberFormatException e) {
@@ -324,7 +325,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                             boolean isStored = inputStorageManager.storeUserInput("transportation", flightType, numberOfFlights);
                             showStoreInputResult(isStored);
                         } catch (NumberFormatException e) {
-                            Toast.makeText(this, "Invalid input for number of flights. Please enter a valid number.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Invalid input for number of flights. Please enter a valid integer.", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Toast.makeText(this, "Please enter the number of flights.", Toast.LENGTH_SHORT).show();
@@ -341,7 +342,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                     boolean isStored = inputStorageManager.storeUserInput("food_consumption", mealType, numberOfServings);
                     showStoreInputResult(isStored);
                 } catch (NumberFormatException e) {
-                    Toast.makeText(this, "Invalid input for number of servings. Please enter a valid number.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Invalid input for number of servings. Please enter a valid integer.", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 Toast.makeText(this, "Please enter the number of servings.", Toast.LENGTH_SHORT).show();
@@ -356,7 +357,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                             boolean isStored = inputStorageManager.storeUserInput("shopping_consumption", "clothes", numberOfClothes);
                             showStoreInputResult(isStored);
                         } catch (NumberFormatException e) {
-                            Toast.makeText(this, "Invalid input for number of clothing items. Please enter a valid number.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Invalid input for number of clothing items. Please enter a valid integer.", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Toast.makeText(this, "Please enter the number of clothing items.", Toast.LENGTH_SHORT).show();
@@ -372,7 +373,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                             boolean isStored = inputStorageManager.storeUserInput("shopping_consumption/electronics", electronicDeviceType, numberOfDevices);
                             showStoreInputResult(isStored);
                         } catch (NumberFormatException e) {
-                            Toast.makeText(this, "Invalid input for number of electronic devices. Please enter a valid number.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Invalid input for number of electronic devices. Please enter a valid integer.", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Toast.makeText(this, "Please enter the number of electronic devices.", Toast.LENGTH_SHORT).show();
@@ -388,7 +389,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                             boolean isStored = inputStorageManager.storeUserInput("shopping_consumption/other_purchases", otherPurchaseType, quantity);
                             showStoreInputResult(isStored);
                         } catch (NumberFormatException e) {
-                            Toast.makeText(this, "Invalid input for quantity. Please enter a valid number.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Invalid input for quantity. Please enter a valid integer.", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Toast.makeText(this, "Please enter the quantity.", Toast.LENGTH_SHORT).show();
@@ -400,7 +401,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                     String billAmountStr = etBillAmount.getText().toString();
                     if (!billAmountStr.isEmpty()) {
                         try {
-                            int billAmount = Integer.parseInt(billAmountStr);
+                            double billAmount = Double.parseDouble(billAmountStr);
                             boolean isStored = inputStorageManager.storeUserInput("shopping_consumption/energy_bills", billType, billAmount);
                             showStoreInputResult(isStored);
                         } catch (NumberFormatException e) {
@@ -426,7 +427,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
         String durationStr = etDistanceOrDuration.getText().toString();
         if (!durationStr.isEmpty()) {
             try {
-                int duration = Integer.parseInt(durationStr);
+                double duration = Double.parseDouble(durationStr);
                 boolean isStored = inputStorageManager.storeUserInput("transportation", transportType, duration);
                 showStoreInputResult(isStored);
             } catch (NumberFormatException e) {
@@ -437,6 +438,10 @@ public class EcoTrackerActivity extends AppCompatActivity {
         }
     }
 
+    private void navigateToEmissionPage() {
+        Intent intent = new Intent(EcoTrackerActivity.this, EmissionDisplayActivity.class);
+        startActivity(intent);
+    }
 
     // Helper methods to determine sub-activity types
     private String getMealType(int position) {
@@ -447,6 +452,10 @@ public class EcoTrackerActivity extends AppCompatActivity {
                 return "pork";
             case 2:
                 return "chicken";
+            case 3:
+                return "fish";
+            case 4:
+                return "plant_based";
             default:
                 return "";
         }
@@ -487,10 +496,5 @@ public class EcoTrackerActivity extends AppCompatActivity {
             default:
                 return "";
         }
-    }
-
-
-    private void calculateEmission() {
-        // Use currentMajorCase, currentMinorCase, and currentSubCase to determine which emission calculation to use
     }
 }

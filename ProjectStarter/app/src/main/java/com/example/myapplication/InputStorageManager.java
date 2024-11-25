@@ -20,7 +20,7 @@ public class InputStorageManager {
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
-    public boolean storeUserInput(String activityType, String subActivityType, int value) {
+    public boolean storeUserInput(String activityType, String subActivityType, double value) {
         // Check if the user is logged in
         if (mAuth.getCurrentUser() == null) {
             // User is not logged in
@@ -37,11 +37,11 @@ public class InputStorageManager {
         // Update the data in Firebase based on activity type and sub-activity type
         userDayRef.child(activityType).child(subActivityType).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                int currentValue = 0;
+                double currentValue = 0;
                 if (task.getResult().exists()) {
-                    currentValue = task.getResult().getValue(Integer.class);
+                    currentValue = task.getResult().getValue(Double.class);
                 }
-                int updatedValue = currentValue + value;
+                double updatedValue = currentValue + value;
                 userDayRef.child(activityType).child(subActivityType).setValue(updatedValue);
             }
         });

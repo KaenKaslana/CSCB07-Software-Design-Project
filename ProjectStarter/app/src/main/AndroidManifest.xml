@@ -30,6 +30,9 @@
         <activity android:name=".EcoTrackerActivity"
             android:exported="true"/>
 
+        <activity android:name=".EmissionDisplayActivity"
+            android:exported="true"/>
+
         <activity android:name=".ForgetPassword"
             android:exported="true">
         </activity>
