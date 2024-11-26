@@ -13,29 +13,88 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".carq2"
+            android:name=".consumptionq4"
+            android:exported="false" />
+        <activity
+            android:name=".consumptionq3"
+            android:exported="false" />
+        <activity
+            android:name=".consumptionq2"
+            android:exported="false" />
+        <activity
+            android:name=".consumptionq1"
+            android:exported="false" />
+        <activity
+            android:name=".houseq7"
+            android:exported="false" />
+        <activity
+            android:name=".houseq6"
+            android:exported="false" />
+        <activity
+            android:name=".houseq5"
+            android:exported="false" />
+        <activity
+            android:name=".houseq4"
+            android:exported="false" />
+        <activity
+            android:name=".houseq3"
+            android:exported="false" />
+        <activity
+            android:name=".houseq2"
+            android:exported="false" />
+        <activity
+            android:name=".houseq1"
+            android:exported="false" />
+        <activity
+            android:name=".meatq4"
+            android:exported="false" />
+        <activity
+            android:name=".meatq3"
+            android:exported="false" />
+        <activity
+            android:name=".meatq2"
+            android:exported="false" />
+        <activity
+            android:name=".wasteq"
+            android:exported="false" />
+        <activity
+            android:name=".meatq1"
+            android:exported="false" />
+        <activity
+            android:name=".publictransportq2"
             android:exported="false" />
         <activity
             android:name=".publictransportq1"
+            android:exported="false" />
+        <activity
+            android:name=".foodq1"
+            android:exported="false" />
+        <activity
+            android:name=".airtravelq2"
+            android:exported="false" />
+        <activity
+            android:name=".airtravelq1"
+            android:exported="false" />
+        <activity
+            android:name=".carq2"
             android:exported="false" />
         <activity
             android:name=".carq1"
             android:exported="false" />
         <activity
             android:name=".intro"
-            android:exported="true" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".q1"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".SignUpActivity"

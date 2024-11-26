@@ -21,7 +21,7 @@ public class q1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseAuth database = FirebaseAuth.getInstance();
         String userId = database.getCurrentUser().getUid();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(userId);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(userId);
 
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
@@ -43,7 +43,6 @@ public class q1 extends AppCompatActivity {
                ref.child("Q1").setValue("No");
                ref.child("Carq1").setValue("No answer");
                ref.child("Carq2").setValue("No answer");
-               ref.child("Carq3").setValue("No answer");
                Intent intent = new Intent(q1.this, publictransportq1.class);
                startActivity(intent);
            }

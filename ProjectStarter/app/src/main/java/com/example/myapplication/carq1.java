@@ -7,11 +7,8 @@ import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -23,14 +20,14 @@ public class carq1 extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_carq1);
         Button gas, diesel, hybrid, electric, dunno;
-        gas = findViewById(R.id.carq1g);
-        diesel = findViewById(R.id.carq1d);
-        hybrid = findViewById(R.id.carq1h);
-        electric = findViewById(R.id.carq1e);
-        dunno = findViewById(R.id.carq1no);
+        gas = findViewById(R.id.ptq12);
+        diesel = findViewById(R.id.ptq15);
+        hybrid = findViewById(R.id.ptq110);
+        electric = findViewById(R.id.ptq1more);
+        dunno = findViewById(R.id.atq1no);
         FirebaseAuth database = FirebaseAuth.getInstance();
         String userId = database.getCurrentUser().getUid();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(userId);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(userId);
 
         gas.setOnClickListener(new View.OnClickListener() {
             @Override
