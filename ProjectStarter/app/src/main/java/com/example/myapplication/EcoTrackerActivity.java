@@ -417,7 +417,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
 
     private void showStoreInputResult(boolean isStored) {
         if (!isStored) {
-            Toast.makeText(this, "Please log in to store your input.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Input failed to store.", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Input successfully stored.", Toast.LENGTH_SHORT).show();
         }
