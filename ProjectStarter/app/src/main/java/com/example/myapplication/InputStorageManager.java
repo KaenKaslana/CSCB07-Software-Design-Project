@@ -27,6 +27,12 @@ public class InputStorageManager {
             return false;
         }
 
+        // Check if the value is greater than zero
+        if (value <= 0) {
+            // Invalid value, ignore storing
+            return false;
+        }
+
         // Get user ID and current date
         String userId = mAuth.getCurrentUser().getUid();
         String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
