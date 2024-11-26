@@ -6,5 +6,86 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".consumptionq3">
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="342dp"
+        android:layout_height="82dp"
+        android:layout_marginTop="254dp"
+        android:layout_marginBottom="392dp"
+        android:text=". How many electronic devices (phones, laptops, etc.) have you purchased in the
+past year?"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.592"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/opt1"
+        android:layout_width="132dp"
+        android:layout_height="82dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="84dp"
+        android:backgroundTint="#009999"
+        android:text="None"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/opt2"
+        android:layout_width="132dp"
+        android:layout_height="82dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="76dp"
+        android:backgroundTint="#009999"
+        android:text="1"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="256dp"
+        android:layout_height="205dp"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/opt3"
+        android:layout_width="132dp"
+        android:layout_height="82dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginBottom="56dp"
+        android:backgroundTint="#009999"
+        android:text="2"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/opt2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/opt4"
+        android:layout_width="132dp"
+        android:layout_height="82dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginBottom="52dp"
+        android:backgroundTint="#009999"
+        android:text="3 or more"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/opt2"
+        app:layout_constraintVertical_bias="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
