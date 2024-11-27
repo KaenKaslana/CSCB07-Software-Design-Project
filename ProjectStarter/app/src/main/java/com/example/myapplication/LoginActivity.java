@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                                             //Login success
                                             Log.d(TAG, "signInWithEmail:success");
                                             Toast.makeText(LoginActivity.this, "Successfully Logged In", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                            Intent intent = new Intent(LoginActivity.this, CarbonFootprintActivity.class);
                                             startActivity(intent);
                                             finish();
                                         } else if (user != null) {
