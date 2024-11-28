@@ -58,7 +58,7 @@ public class EmissionDisplayActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EmissionDisplayActivity.this, DetailedActivityListActivity.class);
-                intent.putExtra("activityList", storedActivityDetails.toString()); // Pass the activity details string
+                intent.putExtra("activityList", storedActivityDetails); // Pass the activity details string
                 startActivity(intent);
             }
         });
