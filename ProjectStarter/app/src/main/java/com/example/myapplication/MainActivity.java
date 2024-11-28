@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Code to execute when the Eco Tracker button is clicked
-                Intent intent = new Intent(MainActivity.this, EcoTrackerActivity.class);
+                Intent intent = new Intent(MainActivity.this, EmissionDisplayActivity.class);
                 startActivity(intent);
             }
         });

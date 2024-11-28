@@ -1,6 +1,9 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,8 +22,11 @@ public class EmissionDisplayActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    private TextView tvDate, tvDailyCO2Emission, tvActivityList;
+    private TextView tvDate, tvDailyCO2Emission, tvTransportationCO2, tvFoodCO2, tvShoppingCO2;
+    private Button btnDetailedActivityList, btnInputActivities;
+    private String storedActivityDetails;
     private double totalDailyCO2Emission;
+    private double transportationCO2, foodCO2, shoppingCO2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +40,37 @@ public class EmissionDisplayActivity extends AppCompatActivity {
         // Initialize UI components
         tvDate = findViewById(R.id.tvDate);
         tvDailyCO2Emission = findViewById(R.id.tvDailyCO2Emission);
-        tvActivityList = findViewById(R.id.tvActivityList);
+        tvTransportationCO2 = findViewById(R.id.tvTransportationCO2);
+        tvFoodCO2 = findViewById(R.id.tvFoodCO2);
+        tvShoppingCO2 = findViewById(R.id.tvShoppingCO2);
+        btnDetailedActivityList = findViewById(R.id.btnDetailedActivityList);
+        btnInputActivities = findViewById(R.id.btnInputActivities);
+
+        // Set up buttons to navigate to other activities
+        setUpButtons();
 
         // Display daily CO2 emission and activities
         displayDailyEmission();
+    }
+
+    private void setUpButtons() {
+        btnDetailedActivityList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EmissionDisplayActivity.this, DetailedActivityListActivity.class);
+                intent.putExtra("activityList", storedActivityDetails.toString()); // Pass the activity details string
+                startActivity(intent);
+            }
+        });
+
+        btnInputActivities.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EmissionDisplayActivity.this, EcoTrackerActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void displayDailyEmission() {
@@ -62,6 +95,10 @@ public class EmissionDisplayActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     double totalDailyCO2Emission = 0.0;
+                    double transportationEmission = 0.0;
+                    double foodEmission = 0.0;
+                    double shoppingEmission = 0.0;
+
                     StringBuilder activityListBuilder = new StringBuilder();
 
                     for (DataSnapshot activitySnapshot : dataSnapshot.getChildren()) {
@@ -73,12 +110,10 @@ public class EmissionDisplayActivity extends AppCompatActivity {
 
                             // Check if the value is a nested HashMap
                             if (valueObj instanceof HashMap) {
-                                // Cast valueObj to HashMap
+                                // Transform HashMap into formatted sub-activity type
                                 HashMap<?, ?> valueMap = (HashMap<?, ?>) valueObj;
 
-                                // Iterate over the nested HashMap
                                 for (Object keyObj : valueMap.keySet()) {
-                                    // Correct the transformation logic here
                                     String formattedSubActivityType = keyObj.toString();
                                     Object nestedValueObj = valueMap.get(keyObj);
 
@@ -95,6 +130,19 @@ public class EmissionDisplayActivity extends AppCompatActivity {
                                                 .append(" - ")
                                                 .append(String.format(Locale.getDefault(), "%.2f", emission))
                                                 .append(" kg CO2\n");
+
+                                        // Sum emissions per category
+                                        switch (activityType) {
+                                            case "transportation":
+                                                transportationEmission += emission;
+                                                break;
+                                            case "food_consumption":
+                                                foodEmission += emission;
+                                                break;
+                                            case "shopping_consumption":
+                                                shoppingEmission += emission;
+                                                break;
+                                        }
                                     }
                                 }
                             } else if (valueObj instanceof Number) {
@@ -111,6 +159,19 @@ public class EmissionDisplayActivity extends AppCompatActivity {
                                         .append(" - ")
                                         .append(String.format(Locale.getDefault(), "%.2f", emission))
                                         .append(" kg CO2\n");
+
+                                // Sum emissions per category
+                                switch (activityType) {
+                                    case "transportation":
+                                        transportationEmission += emission;
+                                        break;
+                                    case "food_consumption":
+                                        foodEmission += emission;
+                                        break;
+                                    case "shopping_consumption":
+                                        shoppingEmission += emission;
+                                        break;
+                                }
                             }
                         }
                     }
@@ -118,12 +179,20 @@ public class EmissionDisplayActivity extends AppCompatActivity {
                     // Display total daily CO2 emission
                     tvDailyCO2Emission.setText("Daily CO2 Emission: " + String.format(Locale.getDefault(), "%.2f", totalDailyCO2Emission) + " kg");
 
-                    // Display the list of activities
-                    tvActivityList.setText(activityListBuilder.toString());
+                    // Display emissions per category
+                    tvTransportationCO2.setText("Transportation: " + String.format(Locale.getDefault(), "%.2f", transportationEmission) + " kg");
+                    tvFoodCO2.setText("Food Consumption: " + String.format(Locale.getDefault(), "%.2f", foodEmission) + " kg");
+                    tvShoppingCO2.setText("Consumption and Shopping: " + String.format(Locale.getDefault(), "%.2f", shoppingEmission) + " kg");
+
+                    // Store the detailed activity list for use in the DetailedActivityListActivity
+                    storedActivityDetails = activityListBuilder.toString();
+
                 } else {
                     // No data for the current date
                     tvDailyCO2Emission.setText("Daily CO2 Emission: 0 kg");
-                    tvActivityList.setText("No activities recorded for today.");
+                    tvTransportationCO2.setText("Transportation: 0 kg");
+                    tvFoodCO2.setText("Food Consumption: 0 kg");
+                    tvShoppingCO2.setText("Consumption and Shopping: 0 kg");
                 }
             }
 
@@ -135,12 +204,28 @@ public class EmissionDisplayActivity extends AppCompatActivity {
         });
     }
 
+    private void categorizeEmissions(String activityType, double emission) {
+        switch (activityType) {
+            case "transportation":
+                transportationCO2 += emission;
+                break;
+            case "food_consumption":
+                foodCO2 += emission;
+                break;
+            case "shopping_consumption":
+                shoppingCO2 += emission;
+                break;
+            default:
+                // Unknown activity type, do nothing
+                break;
+        }
+    }
+
+    // Reuse helper methods from the demo
     private String formatSubActivityTypeFromMap(String activityType, HashMap<?, ?> valueMap) {
-        // This method will help transform the HashMap into a proper sub-activity key
-        // You can determine the structure based on the expected nested keys.
+        // This method helps transform the HashMap into a proper sub-activity key
         for (Object key : valueMap.keySet()) {
             if (key instanceof String) {
-                // Return the key as the formatted sub-activity type
                 return (String) key;
             }
         }

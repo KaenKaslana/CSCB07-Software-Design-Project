@@ -22,7 +22,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
     private Spinner spinnerMainActivityType, spinnerActivityType, spinnerPublicTransportType, spinnerFlightType, spinnerMealType, spinnerProductType, spinnerBillType, spinnerElectronicType, spinnerOtherPurchaseType;
     private EditText etDistanceOrDuration, etNumberOfFlights, etNumberOfServings, etNumberOfProducts, etBillAmount;
     private LinearLayout layoutTransportation, layoutFoodConsumption, layoutShoppingConsumption;
-    private Button btnStoreInput, btnCalculateEmission;
+    private Button btnStoreInput, btnCalculateEmission, btnDeleteInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
 
         btnStoreInput.setOnClickListener(v -> handleStoreInput());
         btnCalculateEmission.setOnClickListener(v -> navigateToEmissionPage());
+        btnDeleteInput.setOnClickListener(v -> handleDeleteInput());
     }
 
     private void initUIComponents() {
@@ -77,6 +78,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
 
         btnStoreInput = findViewById(R.id.btnStoreInput);
         btnCalculateEmission = findViewById(R.id.btnCalculateEmission);
+        btnDeleteInput = findViewById(R.id.btnDeleteInput);
     }
 
     private void setupSpinner(Spinner spinner, int arrayResourceId) {
@@ -435,6 +437,155 @@ public class EcoTrackerActivity extends AppCompatActivity {
             }
         } else {
             Toast.makeText(this, "Please enter the time spent on " + transportType + ".", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void handleDeleteInput() {
+        if (currentMajorCase == 0) { // Transportation
+            switch (currentMinorCase) {
+                case 0: // Drive Personal Vehicle
+                    String distanceDrivenStr = etDistanceOrDuration.getText().toString();
+                    if (!distanceDrivenStr.isEmpty()) {
+                        try {
+                            double distanceDriven = Double.parseDouble(distanceDrivenStr);
+                            inputStorageManager.deleteUserInput(this, "transportation", "car", distanceDriven);
+                        } catch (NumberFormatException e) {
+                            Toast.makeText(this, "Invalid input for distance. Please enter a valid number.", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(this, "Please enter the distance driven.", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case 1: // Public Transportation
+                    switch (currentSubCase) {
+                        case 0: // Bus
+                            handlePublicTransportDelete("public_transport/bus");
+                            break;
+                        case 1: // Train
+                            handlePublicTransportDelete("public_transport/train");
+                            break;
+                        case 2: // Subway
+                            handlePublicTransportDelete("public_transport/subway");
+                            break;
+                    }
+                    break;
+                case 2: // Cycling or Walking
+                    String cyclingDistanceStr = etDistanceOrDuration.getText().toString();
+                    if (!cyclingDistanceStr.isEmpty()) {
+                        try {
+                            double cyclingDistance = Double.parseDouble(cyclingDistanceStr);
+                            inputStorageManager.deleteUserInput(this, "transportation", "cycling_walking", cyclingDistance);
+                        } catch (NumberFormatException e) {
+                            Toast.makeText(this, "Invalid input for cycling/walking distance. Please enter a valid number.", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(this, "Please enter the distance covered by cycling or walking.", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case 3: // Flight
+                    String numberOfFlightsStr = etNumberOfFlights.getText().toString();
+                    if (!numberOfFlightsStr.isEmpty()) {
+                        try {
+                            int numberOfFlights = Integer.parseInt(numberOfFlightsStr);
+                            String flightType = (currentSubCase == 0) ? "short_haul_flight" : "long_haul_flight";
+                            inputStorageManager.deleteUserInput(this, "transportation", flightType, numberOfFlights);
+                        } catch (NumberFormatException e) {
+                            Toast.makeText(this, "Invalid input for number of flights. Please enter a valid integer.", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(this, "Please enter the number of flights.", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+            }
+        } else if (currentMajorCase == 1) { // Food Consumption
+            String numberOfServingsStr = etNumberOfServings.getText().toString();
+            if (!numberOfServingsStr.isEmpty()) {
+                try {
+                    int numberOfServings = Integer.parseInt(numberOfServingsStr);
+                    int mealTypePosition = spinnerMealType.getSelectedItemPosition();
+                    String mealType = getMealType(mealTypePosition);
+                    inputStorageManager.deleteUserInput(this, "food_consumption", mealType, numberOfServings);
+                } catch (NumberFormatException e) {
+                    Toast.makeText(this, "Invalid input for number of servings. Please enter a valid integer.", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "Please enter the number of servings.", Toast.LENGTH_SHORT).show();
+            }
+        } else if (currentMajorCase == 2) { // Shopping and Consumption
+            switch (currentMinorCase) {
+                case 0: // Buy New Clothes
+                    String numberOfClothesStr = etNumberOfProducts.getText().toString();
+                    if (!numberOfClothesStr.isEmpty()) {
+                        try {
+                            int numberOfClothes = Integer.parseInt(numberOfClothesStr);
+                            inputStorageManager.deleteUserInput(this, "shopping_consumption", "clothes", numberOfClothes);
+                        } catch (NumberFormatException e) {
+                            Toast.makeText(this, "Invalid input for number of clothing items. Please enter a valid integer.", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(this, "Please enter the number of clothing items.", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case 1: // Buy Electronics
+                    int electronicsTypePosition = spinnerElectronicType.getSelectedItemPosition();
+                    String electronicDeviceType = getElectronicDeviceType(electronicsTypePosition);
+                    String numberOfDevicesStr = etNumberOfProducts.getText().toString();
+                    if (!numberOfDevicesStr.isEmpty()) {
+                        try {
+                            int numberOfDevices = Integer.parseInt(numberOfDevicesStr);
+                            inputStorageManager.deleteUserInput(this, "shopping_consumption/electronics", electronicDeviceType, numberOfDevices);
+                        } catch (NumberFormatException e) {
+                            Toast.makeText(this, "Invalid input for number of electronic devices. Please enter a valid integer.", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(this, "Please enter the number of electronic devices.", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case 2: // Other Purchases
+                    int otherPurchasePosition = spinnerOtherPurchaseType.getSelectedItemPosition();
+                    String otherPurchaseType = getOtherPurchaseType(otherPurchasePosition);
+                    String quantityStr = etNumberOfProducts.getText().toString();
+                    if (!quantityStr.isEmpty()) {
+                        try {
+                            int quantity = Integer.parseInt(quantityStr);
+                            inputStorageManager.deleteUserInput(this, "shopping_consumption/other_purchases", otherPurchaseType, quantity);
+                        } catch (NumberFormatException e) {
+                            Toast.makeText(this, "Invalid input for quantity. Please enter a valid integer.", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(this, "Please enter the quantity.", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case 3: // Energy Bills
+                    int billTypePosition = spinnerBillType.getSelectedItemPosition();
+                    String billType = getBillType(billTypePosition);
+                    String billAmountStr = etBillAmount.getText().toString();
+                    if (!billAmountStr.isEmpty()) {
+                        try {
+                            double billAmount = Double.parseDouble(billAmountStr);
+                            inputStorageManager.deleteUserInput(this, "shopping_consumption/energy_bills", billType, billAmount);
+                        } catch (NumberFormatException e) {
+                            Toast.makeText(this, "Invalid input for bill amount. Please enter a valid number.", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(this, "Please enter the bill amount.", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void handlePublicTransportDelete(String transportType) {
+        String durationStr = etDistanceOrDuration.getText().toString();
+        if (!durationStr.isEmpty()) {
+            try {
+                double duration = Double.parseDouble(durationStr);
+                inputStorageManager.deleteUserInput(this, "transportation", transportType, duration);
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Invalid input for duration. Please enter a valid number.", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "Please enter the time spent on " + transportType + " to delete.", Toast.LENGTH_SHORT).show();
         }
     }
 

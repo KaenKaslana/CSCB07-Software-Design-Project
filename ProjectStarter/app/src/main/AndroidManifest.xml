@@ -33,6 +33,9 @@
         <activity android:name=".EmissionDisplayActivity"
             android:exported="true"/>
 
+        <activity android:name=".DetailedActivityListActivity"
+            android:exported="true"/>
+
         <activity android:name=".ForgetPassword"
             android:exported="true">
         </activity>
