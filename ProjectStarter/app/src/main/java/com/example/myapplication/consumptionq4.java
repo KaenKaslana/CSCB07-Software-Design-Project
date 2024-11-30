@@ -41,13 +41,13 @@ public class consumptionq4 extends AppCompatActivity {
         freq = findViewById(R.id.opt3);
 
         always = findViewById(R.id.opt4);
-        //Replace all MainActivity.class with Phoenix's class
+
 
         never.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ref.child("Consq4").setValue("Never");
-                Intent i = new Intent(consumptionq4.this, MainActivity.class);
+                Intent i = new Intent(consumptionq4.this, CarbonFootprintActivity.class);
                 startActivity(i);
             }
         });
@@ -56,7 +56,7 @@ public class consumptionq4 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ref.child("Consq4").setValue("Occasionally");
-                Intent i = new Intent(consumptionq4.this, MainActivity.class);
+                Intent i = new Intent(consumptionq4.this, CarbonFootprintActivity.class);
                 startActivity(i);
             }
         });
@@ -65,7 +65,7 @@ public class consumptionq4 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ref.child("Consq4").setValue("Frequently");
-                Intent i = new Intent(consumptionq4.this, MainActivity.class);
+                Intent i = new Intent(consumptionq4.this, CarbonFootprintActivity.class);
                 startActivity(i);
             }
         });
@@ -74,7 +74,7 @@ public class consumptionq4 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ref.child("Consq4").setValue("Always");
-                Intent i = new Intent(consumptionq4.this, MainActivity.class);
+                Intent i = new Intent(consumptionq4.this, CarbonFootprintActivity.class);
                 startActivity(i);
             }
         });
