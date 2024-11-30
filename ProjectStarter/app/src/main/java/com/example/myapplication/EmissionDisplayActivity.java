@@ -25,8 +25,6 @@ public class EmissionDisplayActivity extends AppCompatActivity {
     private TextView tvDate, tvDailyCO2Emission, tvTransportationCO2, tvFoodCO2, tvShoppingCO2;
     private Button btnDetailedActivityList, btnInputActivities;
     private String storedActivityDetails;
-    private double totalDailyCO2Emission;
-    private double transportationCO2, foodCO2, shoppingCO2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,12 +185,43 @@ public class EmissionDisplayActivity extends AppCompatActivity {
                     // Store the detailed activity list for use in the DetailedActivityListActivity
                     storedActivityDetails = activityListBuilder.toString();
 
+                    // Store or remove emissions in Firebase
+                    if (totalDailyCO2Emission > 0) {
+                        userDayRef.child("Total_Daily_Emission").setValue(totalDailyCO2Emission);
+                    } else {
+                        userDayRef.child("Total_Daily_Emission").removeValue();
+                    }
+
+                    if (transportationEmission > 0) {
+                        userDayRef.child("Transportation_Emission").setValue(transportationEmission);
+                    } else {
+                        userDayRef.child("Transportation_Emission").removeValue();
+                    }
+
+                    if (foodEmission > 0) {
+                        userDayRef.child("Food_Emission").setValue(foodEmission);
+                    } else {
+                        userDayRef.child("Food_Emission").removeValue();
+                    }
+
+                    if (shoppingEmission > 0) {
+                        userDayRef.child("Consumption_Shopping_Emission").setValue(shoppingEmission);
+                    } else {
+                        userDayRef.child("Consumption_Shopping_Emission").removeValue();
+                    }
+
                 } else {
                     // No data for the current date
                     tvDailyCO2Emission.setText("Daily CO2 Emission: 0 kg");
                     tvTransportationCO2.setText("Transportation: 0 kg");
                     tvFoodCO2.setText("Food Consumption: 0 kg");
                     tvShoppingCO2.setText("Consumption and Shopping: 0 kg");
+
+                    // Remove emissions from Firebase if they exist
+                    userDayRef.child("Total_Daily_Emission").removeValue();
+                    userDayRef.child("Transportation_Emission").removeValue();
+                    userDayRef.child("Food_Emission").removeValue();
+                    userDayRef.child("Consumption_Shopping_Emission").removeValue();
                 }
             }
 
@@ -202,44 +231,6 @@ public class EmissionDisplayActivity extends AppCompatActivity {
                 Toast.makeText(EmissionDisplayActivity.this, "Failed to load data.", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void categorizeEmissions(String activityType, double emission) {
-        switch (activityType) {
-            case "transportation":
-                transportationCO2 += emission;
-                break;
-            case "food_consumption":
-                foodCO2 += emission;
-                break;
-            case "shopping_consumption":
-                shoppingCO2 += emission;
-                break;
-            default:
-                // Unknown activity type, do nothing
-                break;
-        }
-    }
-
-    // Reuse helper methods from the demo
-    private String formatSubActivityTypeFromMap(String activityType, HashMap<?, ?> valueMap) {
-        // This method helps transform the HashMap into a proper sub-activity key
-        for (Object key : valueMap.keySet()) {
-            if (key instanceof String) {
-                return (String) key;
-            }
-        }
-        return null;
-    }
-
-    private double getValueFromHashMap(HashMap<?, ?> valueMap) {
-        // This method extracts the numeric value from the HashMap for emission calculation
-        for (Object value : valueMap.values()) {
-            if (value instanceof Number) {
-                return ((Number) value).doubleValue();
-            }
-        }
-        return 0.0;
     }
 
     private double calculateEmission(String activityType, String subActivityType, double value) {
