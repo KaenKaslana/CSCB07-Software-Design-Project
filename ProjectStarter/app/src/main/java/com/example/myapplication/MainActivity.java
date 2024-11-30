@@ -11,6 +11,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 /*The page user sees when first time downloading and entering the app
 Branch off of this project and integrate your parts into it
 Team Sign_UP: Focus on the function for the button sign up
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Button login = findViewById(R.id.loginButton);
         Button signup = findViewById(R.id.signupButton);
+        FirebaseAuth.getInstance().signOut();
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
