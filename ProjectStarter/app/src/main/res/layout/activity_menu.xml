@@ -1,0 +1,51 @@
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Suggested Habits Section -->
+    <ScrollView
+        android:id="@+id/suggestedHabitsScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_margin="16dp"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        android:background="@android:color/white"
+        android:elevation="4dp"
+        android:scrollbars="vertical">
+
+        <TextView
+            android:id="@+id/suggestedHabitTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:visibility="gone"
+            android:lineSpacingExtra="4dp"
+            android:gravity="start"
+            android:textColor="@android:color/black" />
+    </ScrollView>
+
+    <!-- Expandable ListView -->
+    <ExpandableListView
+        android:id="@+id/expandableListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@+id/trackHabitsButton"
+        android:layout_below="@id/suggestedHabitsScrollView"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp" />
+
+    <!-- Track Habits Button -->
+    <Button
+        android:id="@+id/trackHabitsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Track Selected Habits"
+        android:layout_margin="16dp" />
+</RelativeLayout>
+

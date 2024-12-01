@@ -11,6 +11,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.FirebaseApp;
+
 /*The page user sees when first time downloading and entering the app
 Branch off of this project and integrate your parts into it
 Team Sign_UP: Focus on the function for the button sign up
@@ -22,9 +24,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FirebaseApp.initializeApp(this);
         Button login = findViewById(R.id.loginButton);
         Button signup = findViewById(R.id.signupButton);
         Button ecoTracker = findViewById(R.id.buttonEcoTracker);
+        Button buttonMenuPage = findViewById(R.id.buttonMenuPage);
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,11 +49,22 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         ecoTracker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Code to execute when the Eco Tracker button is clicked
                 Intent intent = new Intent(MainActivity.this, EmissionDisplayActivity.class);
+                startActivity(intent);
+            }
+        }
+        );
+
+        buttonMenuPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to MenuActivity
+                Intent intent = new Intent(MainActivity.this, MenuActivity.class);
                 startActivity(intent);
             }
         });
