@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".CalendarActivityUI"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -21,25 +24,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity"
-            android:exported="true"/>
-
-        <activity android:name=".LoginActivity"
-            android:exported="true"/>
-
-        <activity android:name=".EcoTrackerActivity"
-            android:exported="true"/>
-
-        <activity android:name=".EmissionDisplayActivity"
-            android:exported="true"/>
-
-        <activity android:name=".DetailedActivityListActivity"
-            android:exported="true"/>
-
-        <activity android:name=".ForgetPassword"
-            android:exported="true">
-        </activity>
-
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".EcoTrackerActivity"
+            android:exported="true" />
+        <activity
+            android:name=".EmissionDisplayActivity"
+            android:exported="true" />
+        <activity
+            android:name=".DetailedActivityListActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ForgetPassword"
+            android:exported="true" />
     </application>
 
 </manifest>

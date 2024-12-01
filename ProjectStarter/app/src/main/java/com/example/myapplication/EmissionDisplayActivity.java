@@ -26,6 +26,7 @@ public class EmissionDisplayActivity extends AppCompatActivity {
     private Button btnDetailedActivityList, btnInputActivities;
     private String storedActivityDetails;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +44,23 @@ public class EmissionDisplayActivity extends AppCompatActivity {
         tvShoppingCO2 = findViewById(R.id.tvShoppingCO2);
         btnDetailedActivityList = findViewById(R.id.btnDetailedActivityList);
         btnInputActivities = findViewById(R.id.btnInputActivities);
+        Button calendarButton = findViewById(R.id.calendarButton);
 
         // Set up buttons to navigate to other activities
         setUpButtons();
 
         // Display daily CO2 emission and activities
         displayDailyEmission();
+
+        calendarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Code to execute when the button is clicked
+                //Replace ThirdActivity.class with the java file for Log_in class
+                Intent intent = new Intent(EmissionDisplayActivity.this, CalendarActivityUI.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setUpButtons() {
@@ -60,6 +72,8 @@ public class EmissionDisplayActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
 
         btnInputActivities.setOnClickListener(new View.OnClickListener() {
             @Override
