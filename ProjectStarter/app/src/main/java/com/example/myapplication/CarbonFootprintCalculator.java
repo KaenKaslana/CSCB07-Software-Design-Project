@@ -154,7 +154,7 @@ public class CarbonFootprintCalculator {
         } else if ("Partially".equalsIgnoreCase(renewable)) {
             housingEmission -= 4000.0;
         }
-        return housingEmission;
+        return Math.max(0, housingEmission);
     }
 
     public double calculateConsumption(String clothing, String secondHand, String electronics, String recycling) {

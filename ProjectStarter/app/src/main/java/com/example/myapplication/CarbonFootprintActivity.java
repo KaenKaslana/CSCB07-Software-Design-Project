@@ -339,8 +339,6 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         emissionsMap.put("zimbabwe", 0.542628);
     }
 
-
-
     private String getAnswer(DataSnapshot snapshot, String key) {
         String value = snapshot.child(key).getValue(String.class);
         return value != null ? value : "No answer";
