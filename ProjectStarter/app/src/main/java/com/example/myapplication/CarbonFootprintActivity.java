@@ -7,7 +7,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +30,6 @@ import java.util.Map;
 
 public class CarbonFootprintActivity extends AppCompatActivity {
 
-    private Button calculateButton;
     private DatabaseReference databaseRef;
     private FusedLocationProviderClient fusedLocationClient;
     private String userCountry = "Canada";
@@ -42,31 +40,23 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carbon_footprint);
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        Button backToMainPageButton = findViewById(R.id.backToMainPageButton);
-        backToMainPageButton.setOnClickListener(v -> {
-            // Change MainActivity to Next Activity
-            Intent intent = new Intent(CarbonFootprintActivity.this, MainActivity.class);
-            startActivity(intent);
-        });
         String userId = auth.getCurrentUser().getUid();
         databaseRef = FirebaseDatabase.getInstance().getReference("Users").child(userId);
         emissionsMap = new HashMap<>();
-        populateEmissionsMap(); // Call to populate emissions data
-        calculateButton = findViewById(R.id.calculateButton);
-        calculateButton.setOnClickListener(v -> calculateAndStoreCarbonFootprint());
+        populateEmissionsMap();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        } else {
+            calculateAndStoreCarbonFootprint();
         }
     }
-
 
     private void calculateAndStoreCarbonFootprint() {
         databaseRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful() && task.getResult() != null) {
                 DataSnapshot snapshot = task.getResult();
                 final double[] totalEmission = {0.0};
-
                 String airTravelShort = getAnswer(snapshot, "Atq1");
                 String airTravelLong = getAnswer(snapshot, "Atq2");
                 String carType = getAnswer(snapshot, "Carq1");
@@ -90,43 +80,80 @@ public class CarbonFootprintActivity extends AppCompatActivity {
                 String secondHand = getAnswer(snapshot, "Consq2");
                 String electronics = getAnswer(snapshot, "Consq3");
                 String recycling = getAnswer(snapshot, "Consq4");
-
-                // Calculate emissions
                 CarbonFootprintCalculator calculator = new CarbonFootprintCalculator();
                 double transportEmission = calculator.calculateTransportation(airTravelShort, airTravelLong, carType, distance, publicTransport, timeSpent);
                 double foodEmission = calculator.calculateFood(dietType, beefFreq, porkFreq, chickenFreq, fishFreq, waste);
                 double housingEmission = calculator.calculateHousing(homeType, occupants, homeSize, homeHeatingType, electricityBill, waterHeatType, renewable);
                 double consumptionEmission = calculator.calculateConsumption(clothing, secondHand, electronics, recycling);
-
                 totalEmission[0] = transportEmission + foodEmission + housingEmission + consumptionEmission;
-
-                // Update Firebase
                 databaseRef.child("CarbonFootprint").setValue(totalEmission[0])
-                        .addOnSuccessListener(aVoid -> {
-                            Toast.makeText(this, "Carbon footprint calculated and stored!", Toast.LENGTH_LONG).show();
-                        })
-                        .addOnFailureListener(e -> {
-                            Toast.makeText(this, "Failed to store carbon footprint.", Toast.LENGTH_SHORT).show();
-                        });
-
-                // Update UI
+                        .addOnSuccessListener(aVoid -> Toast.makeText(this, "Carbon footprint calculated and stored!", Toast.LENGTH_LONG).show())
+                        .addOnFailureListener(e -> Toast.makeText(this, "Failed to store carbon footprint.", Toast.LENGTH_SHORT).show());
                 TextView totalFootprintText = findViewById(R.id.totalFootprintText);
                 TextView breakdownText = findViewById(R.id.breakdownText);
                 TextView comparisonText = findViewById(R.id.comparisonText);
-
                 totalFootprintText.setText(String.format(Locale.getDefault(), "Total Emissions: %.2f tons CO2e", totalEmission[0] / 1000));
-
                 breakdownText.setText(String.format(Locale.getDefault(),
                         "Breakdown:\nTransportation: %.2f tons CO2e\nFood: %.2f tons CO2e\nHousing: %.2f tons CO2e\nConsumption: %.2f tons CO2e",
                         transportEmission / 1000, foodEmission / 1000, housingEmission / 1000, consumptionEmission / 1000));
-
-                // Get the user's country for comparison
                 getUserCountry(totalEmission[0]);
             } else {
                 Toast.makeText(this, "Failed to retrieve user data.", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+    private void getUserCountry(double total) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, location -> {
+                    if (location != null) {
+                        userCountry = getCountryFromLocation(location);
+                        updateComparisonUI(userCountry, total);
+                    } else {
+                        Toast.makeText(this, "Unable to get location.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private String getCountryFromLocation(Location location) {
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        List<Address> addresses;
+        try {
+            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                return addresses.get(0).getCountryName();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "Unknown";
+    }
+
+    private void updateComparisonUI(String country, double total) {
+        TextView comparisonText = findViewById(R.id.comparisonText);
+
+        if ("Unknown".equals(country)) {
+            comparisonText.setText("Unable to determine your country for comparison.");
+        } else {
+            double nationalAverage = emissionsMap.getOrDefault(country, -1.0);
+            if (nationalAverage == -1.0) {
+                comparisonText.setText(String.format("Data unavailable for %s. Unable to compare your footprint.", country));
+            } else {
+                double totalEmission = total;
+                double percentageBelow = ((nationalAverage - totalEmission / 1000) / nationalAverage) * 100;
+                comparisonText.setText(String.format(Locale.getDefault(),
+                        "Your footprint is %.2f%% %s the national average for %s.\nYour footprint %s global targets for climate change!",
+                        Math.abs(percentageBelow),
+                        (percentageBelow > 0 ? "below" : "above"),
+                        country,
+                        (percentageBelow > 0 ? "meets" : "does not meet")));
+            }
+        }
+    }
+
 
     private void populateEmissionsMap() {
         emissionsMap.put("Afghanistan", 0.29536375);
@@ -362,57 +389,6 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         emissionsMap.put("Zimbabwe", 0.542628);
     }
 
-
-    private void getUserCountry(double total) {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(this, location -> {
-                    if (location != null) {
-                        userCountry = getCountryFromLocation(location);
-                        updateComparisonUI(userCountry, total);
-                    } else {
-                        Toast.makeText(this, "Unable to get location.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
-    private String getCountryFromLocation(Location location) {
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        List<Address> addresses;
-        try {
-            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-            if (addresses != null && !addresses.isEmpty()) {
-                return addresses.get(0).getCountryName();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "Unknown";
-    }
-
-    private void updateComparisonUI(String country, double total) {
-        TextView comparisonText = findViewById(R.id.comparisonText);
-
-        if ("Unknown".equals(country)) {
-            comparisonText.setText("Unable to determine your country for comparison.");
-        } else {
-            double nationalAverage = emissionsMap.getOrDefault(country, -1.0);
-            if (nationalAverage == -1.0) {
-                comparisonText.setText(String.format("Data unavailable for %s. Unable to compare your footprint.", country));
-            } else {
-                double totalEmission = total;
-                double percentageBelow = ((nationalAverage - totalEmission / 1000) / nationalAverage) * 100;
-                comparisonText.setText(String.format(Locale.getDefault(),
-                        "Your footprint is %.2f%% %s the national average for %s.\nYour footprint %s global targets for climate change!",
-                        Math.abs(percentageBelow),
-                        (percentageBelow > 0 ? "below" : "above"),
-                        country,
-                        (percentageBelow > 0 ? "meets" : "does not meet")));
-            }
-        }
-    }
 
     private String getAnswer(DataSnapshot snapshot, String key) {
         String value = snapshot.child(key).getValue(String.class);
