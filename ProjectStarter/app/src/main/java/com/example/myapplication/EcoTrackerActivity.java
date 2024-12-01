@@ -16,6 +16,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
 
     // Define state variables
     private int currentMajorCase = -1; // -1 means uninitialized
+    private String dateNow;
     private int currentMinorCase = -1;
     private int currentSubCase = -1;
     private InputStorageManager inputStorageManager;
@@ -34,6 +35,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
 
         // Set up main activity type spinner
         setupSpinner(spinnerMainActivityType, R.array.main_activity_types);
+        dateNow = getIntent().getStringExtra("EcoTrackerDate");
 
         spinnerMainActivityType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -282,7 +284,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                     if (!distanceDrivenStr.isEmpty()) {
                         try {
                             double distanceDriven = Double.parseDouble(distanceDrivenStr);
-                            boolean isStored = inputStorageManager.storeUserInput("transportation", "car", distanceDriven);
+                            boolean isStored = inputStorageManager.storeUserInput("transportation", "car", distanceDriven, dateNow);
                             showStoreInputResult(isStored);
                         } catch (NumberFormatException e) {
                             Toast.makeText(this, "Invalid input for distance. Please enter a valid number.", Toast.LENGTH_SHORT).show();
@@ -309,7 +311,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                     if (!cyclingDistanceStr.isEmpty()) {
                         try {
                             double cyclingDistance = Double.parseDouble(cyclingDistanceStr);
-                            boolean isStored = inputStorageManager.storeUserInput("transportation", "cycling_walking", cyclingDistance);
+                            boolean isStored = inputStorageManager.storeUserInput("transportation", "cycling_walking", cyclingDistance, dateNow);
                             showStoreInputResult(isStored);
                         } catch (NumberFormatException e) {
                             Toast.makeText(this, "Invalid input for cycling/walking distance. Please enter a valid number.", Toast.LENGTH_SHORT).show();
@@ -324,7 +326,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                         try {
                             int numberOfFlights = Integer.parseInt(numberOfFlightsStr);
                             String flightType = (currentSubCase == 0) ? "short_haul_flight" : "long_haul_flight";
-                            boolean isStored = inputStorageManager.storeUserInput("transportation", flightType, numberOfFlights);
+                            boolean isStored = inputStorageManager.storeUserInput("transportation", flightType, numberOfFlights, dateNow);
                             showStoreInputResult(isStored);
                         } catch (NumberFormatException e) {
                             Toast.makeText(this, "Invalid input for number of flights. Please enter a valid integer.", Toast.LENGTH_SHORT).show();
@@ -341,7 +343,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                     int numberOfServings = Integer.parseInt(numberOfServingsStr);
                     int mealTypePosition = spinnerMealType.getSelectedItemPosition();
                     String mealType = getMealType(mealTypePosition);
-                    boolean isStored = inputStorageManager.storeUserInput("food_consumption", mealType, numberOfServings);
+                    boolean isStored = inputStorageManager.storeUserInput("food_consumption", mealType, numberOfServings, dateNow);
                     showStoreInputResult(isStored);
                 } catch (NumberFormatException e) {
                     Toast.makeText(this, "Invalid input for number of servings. Please enter a valid integer.", Toast.LENGTH_SHORT).show();
@@ -356,7 +358,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                     if (!numberOfClothesStr.isEmpty()) {
                         try {
                             int numberOfClothes = Integer.parseInt(numberOfClothesStr);
-                            boolean isStored = inputStorageManager.storeUserInput("shopping_consumption", "clothes", numberOfClothes);
+                            boolean isStored = inputStorageManager.storeUserInput("shopping_consumption", "clothes", numberOfClothes, dateNow);
                             showStoreInputResult(isStored);
                         } catch (NumberFormatException e) {
                             Toast.makeText(this, "Invalid input for number of clothing items. Please enter a valid integer.", Toast.LENGTH_SHORT).show();
@@ -372,7 +374,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                     if (!numberOfDevicesStr.isEmpty()) {
                         try {
                             int numberOfDevices = Integer.parseInt(numberOfDevicesStr);
-                            boolean isStored = inputStorageManager.storeUserInput("shopping_consumption/electronics", electronicDeviceType, numberOfDevices);
+                            boolean isStored = inputStorageManager.storeUserInput("shopping_consumption/electronics", electronicDeviceType, numberOfDevices, dateNow);
                             showStoreInputResult(isStored);
                         } catch (NumberFormatException e) {
                             Toast.makeText(this, "Invalid input for number of electronic devices. Please enter a valid integer.", Toast.LENGTH_SHORT).show();
@@ -388,7 +390,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                     if (!quantityStr.isEmpty()) {
                         try {
                             int quantity = Integer.parseInt(quantityStr);
-                            boolean isStored = inputStorageManager.storeUserInput("shopping_consumption/other_purchases", otherPurchaseType, quantity);
+                            boolean isStored = inputStorageManager.storeUserInput("shopping_consumption/other_purchases", otherPurchaseType, quantity, dateNow);
                             showStoreInputResult(isStored);
                         } catch (NumberFormatException e) {
                             Toast.makeText(this, "Invalid input for quantity. Please enter a valid integer.", Toast.LENGTH_SHORT).show();
@@ -404,7 +406,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                     if (!billAmountStr.isEmpty()) {
                         try {
                             double billAmount = Double.parseDouble(billAmountStr);
-                            boolean isStored = inputStorageManager.storeUserInput("shopping_consumption/energy_bills", billType, billAmount);
+                            boolean isStored = inputStorageManager.storeUserInput("shopping_consumption/energy_bills", billType, billAmount, dateNow);
                             showStoreInputResult(isStored);
                         } catch (NumberFormatException e) {
                             Toast.makeText(this, "Invalid input for bill amount. Please enter a valid number.", Toast.LENGTH_SHORT).show();
@@ -430,7 +432,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
         if (!durationStr.isEmpty()) {
             try {
                 double duration = Double.parseDouble(durationStr);
-                boolean isStored = inputStorageManager.storeUserInput("transportation", transportType, duration);
+                boolean isStored = inputStorageManager.storeUserInput("transportation", transportType, duration, dateNow);
                 showStoreInputResult(isStored);
             } catch (NumberFormatException e) {
                 Toast.makeText(this, "Invalid input for duration. Please enter a valid number.", Toast.LENGTH_SHORT).show();
@@ -448,7 +450,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                     if (!distanceDrivenStr.isEmpty()) {
                         try {
                             double distanceDriven = Double.parseDouble(distanceDrivenStr);
-                            inputStorageManager.deleteUserInput(this, "transportation", "car", distanceDriven);
+                            inputStorageManager.deleteUserInput(this, "transportation", "car", distanceDriven, dateNow);
                         } catch (NumberFormatException e) {
                             Toast.makeText(this, "Invalid input for distance. Please enter a valid number.", Toast.LENGTH_SHORT).show();
                         }
@@ -474,7 +476,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                     if (!cyclingDistanceStr.isEmpty()) {
                         try {
                             double cyclingDistance = Double.parseDouble(cyclingDistanceStr);
-                            inputStorageManager.deleteUserInput(this, "transportation", "cycling_walking", cyclingDistance);
+                            inputStorageManager.deleteUserInput(this, "transportation", "cycling_walking", cyclingDistance, dateNow);
                         } catch (NumberFormatException e) {
                             Toast.makeText(this, "Invalid input for cycling/walking distance. Please enter a valid number.", Toast.LENGTH_SHORT).show();
                         }
@@ -488,7 +490,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                         try {
                             int numberOfFlights = Integer.parseInt(numberOfFlightsStr);
                             String flightType = (currentSubCase == 0) ? "short_haul_flight" : "long_haul_flight";
-                            inputStorageManager.deleteUserInput(this, "transportation", flightType, numberOfFlights);
+                            inputStorageManager.deleteUserInput(this, "transportation", flightType, numberOfFlights, dateNow);
                         } catch (NumberFormatException e) {
                             Toast.makeText(this, "Invalid input for number of flights. Please enter a valid integer.", Toast.LENGTH_SHORT).show();
                         }
@@ -504,7 +506,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                     int numberOfServings = Integer.parseInt(numberOfServingsStr);
                     int mealTypePosition = spinnerMealType.getSelectedItemPosition();
                     String mealType = getMealType(mealTypePosition);
-                    inputStorageManager.deleteUserInput(this, "food_consumption", mealType, numberOfServings);
+                    inputStorageManager.deleteUserInput(this, "food_consumption", mealType, numberOfServings, dateNow);
                 } catch (NumberFormatException e) {
                     Toast.makeText(this, "Invalid input for number of servings. Please enter a valid integer.", Toast.LENGTH_SHORT).show();
                 }
@@ -518,7 +520,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                     if (!numberOfClothesStr.isEmpty()) {
                         try {
                             int numberOfClothes = Integer.parseInt(numberOfClothesStr);
-                            inputStorageManager.deleteUserInput(this, "shopping_consumption", "clothes", numberOfClothes);
+                            inputStorageManager.deleteUserInput(this, "shopping_consumption", "clothes", numberOfClothes, dateNow);
                         } catch (NumberFormatException e) {
                             Toast.makeText(this, "Invalid input for number of clothing items. Please enter a valid integer.", Toast.LENGTH_SHORT).show();
                         }
@@ -533,7 +535,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                     if (!numberOfDevicesStr.isEmpty()) {
                         try {
                             int numberOfDevices = Integer.parseInt(numberOfDevicesStr);
-                            inputStorageManager.deleteUserInput(this, "shopping_consumption/electronics", electronicDeviceType, numberOfDevices);
+                            inputStorageManager.deleteUserInput(this, "shopping_consumption/electronics", electronicDeviceType, numberOfDevices, dateNow);
                         } catch (NumberFormatException e) {
                             Toast.makeText(this, "Invalid input for number of electronic devices. Please enter a valid integer.", Toast.LENGTH_SHORT).show();
                         }
@@ -548,7 +550,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                     if (!quantityStr.isEmpty()) {
                         try {
                             int quantity = Integer.parseInt(quantityStr);
-                            inputStorageManager.deleteUserInput(this, "shopping_consumption/other_purchases", otherPurchaseType, quantity);
+                            inputStorageManager.deleteUserInput(this, "shopping_consumption/other_purchases", otherPurchaseType, quantity, dateNow);
                         } catch (NumberFormatException e) {
                             Toast.makeText(this, "Invalid input for quantity. Please enter a valid integer.", Toast.LENGTH_SHORT).show();
                         }
@@ -563,7 +565,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
                     if (!billAmountStr.isEmpty()) {
                         try {
                             double billAmount = Double.parseDouble(billAmountStr);
-                            inputStorageManager.deleteUserInput(this, "shopping_consumption/energy_bills", billType, billAmount);
+                            inputStorageManager.deleteUserInput(this, "shopping_consumption/energy_bills", billType, billAmount, dateNow);
                         } catch (NumberFormatException e) {
                             Toast.makeText(this, "Invalid input for bill amount. Please enter a valid number.", Toast.LENGTH_SHORT).show();
                         }
@@ -580,7 +582,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
         if (!durationStr.isEmpty()) {
             try {
                 double duration = Double.parseDouble(durationStr);
-                inputStorageManager.deleteUserInput(this, "transportation", transportType, duration);
+                inputStorageManager.deleteUserInput(this, "transportation", transportType, duration, dateNow);
             } catch (NumberFormatException e) {
                 Toast.makeText(this, "Invalid input for duration. Please enter a valid number.", Toast.LENGTH_SHORT).show();
             }
@@ -591,6 +593,7 @@ public class EcoTrackerActivity extends AppCompatActivity {
 
     private void navigateToEmissionPage() {
         Intent intent = new Intent(EcoTrackerActivity.this, EmissionDisplayActivity.class);
+        intent.putExtra("currentDate", dateNow); // Pass the selected date
         startActivity(intent);
     }
 

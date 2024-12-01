@@ -18,8 +18,9 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.HashMap;
 
-public class EmissionDisplayActivity extends AppCompatActivity {
 
+public class EmissionDisplayActivity extends AppCompatActivity {
+    private String currentDate;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private TextView tvDate, tvDailyCO2Emission, tvTransportationCO2, tvFoodCO2, tvShoppingCO2;
@@ -45,6 +46,11 @@ public class EmissionDisplayActivity extends AppCompatActivity {
         btnDetailedActivityList = findViewById(R.id.btnDetailedActivityList);
         btnInputActivities = findViewById(R.id.btnInputActivities);
         Button calendarButton = findViewById(R.id.calendarButton);
+
+
+        // If no date is passed, default to the current date
+
+
 
         // Set up buttons to navigate to other activities
         setUpButtons();
@@ -79,6 +85,7 @@ public class EmissionDisplayActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EmissionDisplayActivity.this, EcoTrackerActivity.class);
+                intent.putExtra("EcoTrackerDate", currentDate); // Pass the selected date
                 startActivity(intent);
             }
         });
@@ -94,10 +101,21 @@ public class EmissionDisplayActivity extends AppCompatActivity {
 
         // Get user ID and current date
         String userId = mAuth.getCurrentUser().getUid();
-        String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-
+        //String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         // Display the current date
+        // If no date is passed, default to today's date
+
+        String selectedDate = getIntent().getStringExtra("currentDate");
+        if (selectedDate != null) {
+            currentDate = selectedDate; // Use the updated date from CalendarActivityUI
+
+        } else {
+            currentDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date()); // Use today's date
+        }
         tvDate.setText(currentDate);
+
+
+        // Retrieve the selected date from the Intent
 
         // Construct reference to user's daily inputs for the current date
         DatabaseReference userDayRef = mDatabase.child("users").child(userId).child("daily_inputs").child(currentDate);

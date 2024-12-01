@@ -6,6 +6,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -20,7 +21,7 @@ public class InputStorageManager {
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
-    public boolean storeUserInput(String activityType, String subActivityType, double value) {
+    public boolean storeUserInput(String activityType, String subActivityType, double value, String date) {
         // Check if the user is logged in
         if (mAuth.getCurrentUser() == null) {
             // User is not logged in
@@ -35,7 +36,7 @@ public class InputStorageManager {
 
         // Get user ID and current date
         String userId = mAuth.getCurrentUser().getUid();
-        String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String currentDate = date;
 
         // Construct reference to user's daily inputs for the current date
         DatabaseReference userDayRef = mDatabase.child("users").child(userId).child("daily_inputs").child(currentDate);
@@ -55,7 +56,7 @@ public class InputStorageManager {
         return true; // Indicate the input was processed
     }
 
-    public void deleteUserInput(Context context, String activityType, String subActivityType, double value) {
+    public void deleteUserInput(Context context, String activityType, String subActivityType, double value, String date) {
         if (mAuth.getCurrentUser() == null) {
             // User is not logged in
             Toast.makeText(context, "User is not logged in", Toast.LENGTH_SHORT).show();
@@ -70,7 +71,7 @@ public class InputStorageManager {
 
         // Get user ID and current date
         String userId = mAuth.getCurrentUser().getUid();
-        String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String currentDate = date;
 
         // Construct reference to user's daily inputs for the current date
         DatabaseReference userDayRef = mDatabase.child("users").child(userId).child("daily_inputs").child(currentDate).child(activityType).child(subActivityType);

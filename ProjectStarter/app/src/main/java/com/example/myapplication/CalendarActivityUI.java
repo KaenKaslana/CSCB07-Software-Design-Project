@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import static java.lang.String.format;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.CalendarView;
@@ -15,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class CalendarActivityUI extends AppCompatActivity {
@@ -36,7 +39,17 @@ public class CalendarActivityUI extends AppCompatActivity {
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         // Set default date
-        setDate(1, 1, 2024);
+
+        // Get today's date
+        Calendar calendar = Calendar.getInstance();
+
+        int todayDay = calendar.get(Calendar.DAY_OF_MONTH); // Get the day of the month
+        int todayMonth = calendar.get(Calendar.MONTH) + 1; // Get the month (0-based, so add 1)
+        int todayYear = calendar.get(Calendar.YEAR);       // Get the year
+
+// Use the date components
+        setDate(todayDay, todayMonth, todayYear); // Call your setDate method
+
 
         // Listen for date changes
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
