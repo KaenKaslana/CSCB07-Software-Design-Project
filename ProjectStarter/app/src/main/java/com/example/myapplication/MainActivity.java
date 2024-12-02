@@ -25,8 +25,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Button login = findViewById(R.id.loginButton);
         Button signup = findViewById(R.id.signupButton);
-        Button ecoTracker = findViewById(R.id.buttonEcoTracker);
-
         VideoView videoView = findViewById(R.id.natureVideo);
 
 // Create a URI for the natureWalk.mp4 file
@@ -58,14 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 // Code to execute when the button is clicked
                 //Replace ThirdActivity.class with the java file for Log_in class
                 Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
-                startActivity(intent);
-            }
-        });
-        ecoTracker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Code to execute when the Eco Tracker button is clicked
-                Intent intent = new Intent(MainActivity.this, EmissionDisplayActivity.class);
                 startActivity(intent);
             }
         });

@@ -30,7 +30,6 @@ public class CalendarActivityUI extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar_ui);
-
         calendarView = findViewById(R.id.calendarViewName);
         calendar = Calendar.getInstance();
 
@@ -47,7 +46,7 @@ public class CalendarActivityUI extends AppCompatActivity {
         int todayMonth = Integer.parseInt(dateArray[1]);
         int todayYear = Integer.parseInt(dateArray[0]);
 
-// Use the date components
+// U    set the date components
         setDate(todayDay, todayMonth, todayYear); // Call your setDate method
 
 
@@ -82,8 +81,6 @@ public class CalendarActivityUI extends AppCompatActivity {
             }
         });
     }
-
-
     public void getDate() {
         long date = calendarView.getDate();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
@@ -91,7 +88,6 @@ public class CalendarActivityUI extends AppCompatActivity {
         String selectedDate = simpleDateFormat.format(calendar.getTime());
         Toast.makeText(this, selectedDate, Toast.LENGTH_SHORT).show();
     }
-
     public void setDate(int day, int month, int year) {
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month - 1);
