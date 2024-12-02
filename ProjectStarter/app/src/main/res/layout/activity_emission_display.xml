@@ -90,7 +90,10 @@
             android:text="calendar"
             android:layout_marginEnd="8dp" />
 
+
         <!-- Button for Delete Activities -->
     </LinearLayout>
+    
+
 
 </LinearLayout>

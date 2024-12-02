@@ -40,12 +40,12 @@ public class CalendarActivityUI extends AppCompatActivity {
 
         // Set default date
 
+        String dateDisplay = getIntent().getStringExtra("sendDate");
         // Get today's date
-        Calendar calendar = Calendar.getInstance();
-
-        int todayDay = calendar.get(Calendar.DAY_OF_MONTH); // Get the day of the month
-        int todayMonth = calendar.get(Calendar.MONTH) + 1; // Get the month (0-based, so add 1)
-        int todayYear = calendar.get(Calendar.YEAR);       // Get the year
+        String[] dateArray = dateDisplay.split("-");
+        int todayDay = Integer.parseInt(dateArray[2]);
+        int todayMonth = Integer.parseInt(dateArray[1]);
+        int todayYear = Integer.parseInt(dateArray[0]);
 
 // Use the date components
         setDate(todayDay, todayMonth, todayYear); // Call your setDate method

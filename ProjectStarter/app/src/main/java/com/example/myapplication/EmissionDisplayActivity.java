@@ -65,6 +65,7 @@ public class EmissionDisplayActivity extends AppCompatActivity {
                 // Code to execute when the button is clicked
                 //Replace ThirdActivity.class with the java file for Log_in class
                 Intent intent = new Intent(EmissionDisplayActivity.this, CalendarActivityUI.class);
+                intent.putExtra("sendDate", currentDate); // Pass the selected date
                 startActivity(intent);
             }
         });
