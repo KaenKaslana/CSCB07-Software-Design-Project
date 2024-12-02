@@ -9,85 +9,63 @@
 
     <!-- This scales the image to fill the screen without distorting the aspect ratio -->
 
-    <ImageView
-        android:id="@+id/backgroundImage"
+
+        <!-- VideoView -->
+    <!-- Background Video -->
+    <VideoView
+        android:id="@+id/natureVideo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#673AB7"
-        android:scaleType="center"
-        android:src="@drawable/er"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="53dp" />
+        android:scaleType="centerCrop"
+        tools:ignore="MissingConstraints" />
 
+    <!-- Semi-transparent overlay -->
+    <!-- Semi-transparent overlay -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#33000000" /> <!-- 20% opaque black -->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/dark_bottom_gradient"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+    <!-- Title Text ("Planetze") -->
     <TextView
-        android:id="@+id/welcomeView"
+        android:id="@+id/titleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="117dp"
-        android:layout_marginTop="156dp"
-        android:layout_marginEnd="117dp"
-        android:layout_marginBottom="20dp"
-        android:text="Welcome To"
-        android:textColor="@color/white"
-        android:textSize="32sp"
+        android:layout_marginTop="100dp"
+        android:text="Planetze"
+        android:textSize="48sp"
+        android:textColor="#FFFFFF"
+        android:fontFamily="sans-serif-medium"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/nameView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Welcome To" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
 
+    <!-- Subtitle Text -->
     <TextView
-        android:id="@+id/nameView"
-        android:layout_width="167dp"
-        android:layout_height="85dp"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="128dp"
-        android:layout_marginBottom="30dp"
-
-        android:text="Plantez"
-        android:textColor="@color/white"
-        android:textSize="42sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/loginButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeView"
-        tools:text="Plantez" />
-
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="0dp"
+        android:id="@+id/subtitleText"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:text="Log in"
-        android:textSize="32sp"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:text="Designed to save the planet."
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
+        android:fontFamily="sans-serif"
+        app:layout_constraintTop_toBottomOf="@id/titleText"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
-
-    <Button
-        android:id="@+id/signupButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:text="Sign Up"
-        android:textSize="32sp"
-
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.662" />
+        app:layout_constraintVertical_bias="0.0" />
 
+    <!-- Eco Tracker Button (Centered) -->
     <Button
         android:id="@+id/buttonEcoTracker"
         android:layout_width="0dp"
@@ -95,25 +73,44 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:text="Eco Tracker"
-        android:textSize="32sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/subtitleText"
+        app:layout_constraintBottom_toTopOf="@id/loginButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signupButton"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/sloganVIew"
-        android:layout_width="wrap_content"
+    <!-- Sign Up Button -->
+    <Button
+        android:id="@+id/signupButton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="A Greener Earth"
-        android:textColor="@color/white"
-        android:textSize="24sp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="Sign Up"
+        android:backgroundTint="#009999"
+        android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/loginButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/backgroundImage" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Log In Button -->
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="Log in"
+        android:background="@android:color/transparent"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="32dp" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
