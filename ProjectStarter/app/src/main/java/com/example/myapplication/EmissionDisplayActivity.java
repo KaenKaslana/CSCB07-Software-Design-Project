@@ -69,6 +69,14 @@ public class EmissionDisplayActivity extends AppCompatActivity {
             }
         });
 
+
+        Button btnGoToMenu = findViewById(R.id.btnGoToMenu);
+        btnGoToMenu.setOnClickListener(v -> {
+            Intent intent = new Intent(EmissionDisplayActivity.this, MenuActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
     }
 
     private void displayDailyEmission() {

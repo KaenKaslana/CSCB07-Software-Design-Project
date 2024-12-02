@@ -2,7 +2,6 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,30 +10,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
-
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 
 
 public class EcoTrackerActivity extends AppCompatActivity {
@@ -56,8 +33,6 @@ public class EcoTrackerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eco_tracker);
-
-
 
         // Initialize UI components
         initUIComponents();
@@ -84,26 +59,19 @@ public class EcoTrackerActivity extends AppCompatActivity {
 
 
 
+
+
         // Add Save Progress button listener
         Button btnSaveProgress = findViewById(R.id.btnSaveProgress);
         btnSaveProgress.setOnClickListener(v -> {
-
-            // Navigate to the ProgressBarActivity
+            // Navigate to ProgressBarActivity
             Intent intent = new Intent(EcoTrackerActivity.this, ProgressBarActivity.class);
             startActivity(intent);
         });
 
 
-        // Find the back button
-        Button backButton = findViewById(R.id.back);
 
-        // Set an onClickListener to navigate back to the main page
-        backButton.setOnClickListener(v -> {
-            // Navigate back to MainActivity
-            Intent intent = new Intent(EcoTrackerActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        });
+
     }
 
     private void initUIComponents() {

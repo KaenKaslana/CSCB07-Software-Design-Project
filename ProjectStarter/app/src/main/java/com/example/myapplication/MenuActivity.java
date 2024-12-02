@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -69,6 +71,11 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         FirebaseApp.initializeApp(this);
 
+        // Get current user
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = auth.getCurrentUser();
+
+
         expandableListView = findViewById(R.id.expandableListView);
         suggestedHabitTextView = findViewById(R.id.suggestedHabitTextView);
         Button trackHabitsButton = findViewById(R.id.trackHabitsButton);
@@ -84,8 +91,9 @@ public class MenuActivity extends AppCompatActivity {
                 if (!adoptedHabits.contains(habit)) {
                     adoptedHabits.add(habit);
 
-                    // Add the habit to Firebase with an initial count of 0
-                    String userId = "4ZQqEUzd28aWjrhrU5PrJTXid7Z2";
+                    //String userId = "4ZQqEUzd28aWjrhrU5PrJTXid7Z2";
+                    String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    fetchDataForUser(userId);
                     DatabaseReference habitsRef = FirebaseDatabase.getInstance()
                             .getReference("Users")
                             .child(userId)
@@ -108,19 +116,17 @@ public class MenuActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        // Fetch Data for the static user
-        fetchDataForUser("4ZQqEUzd28aWjrhrU5PrJTXid7Z2");
+        //fetchDataForUser("4ZQqEUzd28aWjrhrU5PrJTXid7Z2");
 
-        // Navigate to EcoTrackerActivity
+
         trackHabitsButton.setOnClickListener(v -> {
-            if (adoptedHabits.isEmpty()) {
-                Toast.makeText(MenuActivity.this, "Please adopt at least one habit before proceeding.", Toast.LENGTH_SHORT).show();
-            } else {
-                Intent intent = new Intent(MenuActivity.this, EcoTrackerActivity.class);
-                intent.putStringArrayListExtra("adoptedHabits", new ArrayList<>(adoptedHabits));
-                startActivity(intent);
-            }
+            // Always pass the adoptedHabits list, even if empty
+            Intent intent = new Intent(MenuActivity.this, EcoTrackerActivity.class);
+            intent.putStringArrayListExtra("adoptedHabits", new ArrayList<>(adoptedHabits));
+            startActivity(intent);
         });
+
+
     }
 
     private void fetchDataForUser(String userId) {

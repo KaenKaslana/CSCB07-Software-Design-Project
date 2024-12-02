@@ -90,7 +90,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return true;
     }
 
-    // Filter logic
     public void filter(String query) {
         query = query.toLowerCase();
         filteredCategoryList.clear();
@@ -117,6 +116,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }
 
 
-        notifyDataSetChanged(); // Refresh the UI
+        notifyDataSetChanged();
     }
 }

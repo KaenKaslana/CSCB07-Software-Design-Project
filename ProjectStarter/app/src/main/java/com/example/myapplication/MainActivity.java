@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         Button login = findViewById(R.id.loginButton);
         Button signup = findViewById(R.id.signupButton);
         Button ecoTracker = findViewById(R.id.buttonEcoTracker);
-        Button buttonMenuPage = findViewById(R.id.buttonMenuPage);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,13 +59,5 @@ public class MainActivity extends AppCompatActivity {
         }
         );
 
-        buttonMenuPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to MenuActivity
-                Intent intent = new Intent(MainActivity.this, MenuActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 }

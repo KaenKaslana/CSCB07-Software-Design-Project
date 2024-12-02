@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -11,6 +10,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,11 +30,13 @@ public class ProgressBarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_progress_bar); // Ensure the XML layout has a container for habits
-
+        FirebaseApp.initializeApp(this);
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = auth.getCurrentUser();
         habitsProgressContainer = findViewById(R.id.habitsProgressContainer); // Replace with your container ID
-
-        // Fetch user data from Firebase
-        String userId = "4ZQqEUzd28aWjrhrU5PrJTXid7Z2"; // Replace with dynamic user ID in production
+        String userId = currentUser.getUid();
+       // String userId = "4ZQqEUzd28aWjrhrU5PrJTXid7Z2"; // Replace with dynamic user ID in production
+        //DatabaseReference habitsRef = FirebaseDatabase.getInstance()
         DatabaseReference habitsRef = FirebaseDatabase.getInstance().getReference("Users").child(userId).child("Habits");
 
         fetchAndDisplayHabits(habitsRef);
@@ -52,7 +56,6 @@ public class ProgressBarActivity extends AppCompatActivity {
                         int progress = progressSnapshot.exists() ? progressSnapshot.getValue(Integer.class) : 0;
                         String lastUpdated = lastUpdatedSnapshot.exists() ? lastUpdatedSnapshot.getValue(String.class) : null;
 
-                        // Dynamically add UI components for each habit
                         addHabitProgressUI(habitName, progress, lastUpdated, habitsRef);
                     }
                 } else {
@@ -84,17 +87,14 @@ public class ProgressBarActivity extends AppCompatActivity {
         Button incrementButton = new Button(this);
         incrementButton.setText("Mark as Complete");
         incrementButton.setOnClickListener(v -> {
-            // Get today's date
             String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
-            // Check if the habit was already updated today
             if (today.equals(lastUpdated)) {
                 Toast.makeText(ProgressBarActivity.this, "You have already completed this habit today!", Toast.LENGTH_SHORT).show();
             } else {
                 int newProgress = progress + 1;
                 habitProgressBar.setProgress(newProgress);
 
-                // Update progress and LastUpdated in Firebase
                 habitsRef.child(habitName).child("Count").setValue(newProgress);
                 habitsRef.child(habitName).child("LastUpdated").setValue(today)
                         .addOnSuccessListener(aVoid -> Toast.makeText(ProgressBarActivity.this, "Progress updated!", Toast.LENGTH_SHORT).show())
@@ -102,7 +102,6 @@ public class ProgressBarActivity extends AppCompatActivity {
             }
         });
 
-        // Add components to the container
         habitsProgressContainer.addView(habitNameTextView);
         habitsProgressContainer.addView(habitProgressBar);
         habitsProgressContainer.addView(incrementButton);
@@ -121,15 +120,12 @@ public class ProgressBarActivity extends AppCompatActivity {
                         for (DataSnapshot habitSnapshot : snapshot.getChildren()) {
                             String habitName = habitSnapshot.getKey();
 
-                            // Reset the progress to 0
                             if (habitName != null) {
                                 habitsRef.child(habitName).child("Count").setValue(0)
                                         .addOnSuccessListener(aVoid -> {
-                                            // Optional: Notify the user
                                             Toast.makeText(ProgressBarActivity.this, "Progress reset for " + habitName, Toast.LENGTH_SHORT).show();
                                         })
                                         .addOnFailureListener(e -> {
-                                            // Handle errors
                                             Toast.makeText(ProgressBarActivity.this, "Failed to reset progress: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                         });
                             }
