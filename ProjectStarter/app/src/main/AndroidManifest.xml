@@ -42,6 +42,12 @@
         <activity
             android:name=".ForgetPassword"
             android:exported="true" />
-    </application>
+        <activity android:name=".MenuActivity">
 
+        </activity>
+
+        <activity android:name=".ProgressBarActivity">
+
+        </activity>
+    </application>
 </manifest>
