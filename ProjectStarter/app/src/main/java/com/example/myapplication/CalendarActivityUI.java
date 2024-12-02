@@ -56,7 +56,7 @@ public class CalendarActivityUI extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int day) {
                 // Format the selected date
-                String formattedDate = day + "/" + (month + 1) + "/" + year;
+                String formattedDate = year + "-" + (month + 1) + "-" + day;
 
                 // Save the date to Firebase for the current user
                 if (currentUser != null) {

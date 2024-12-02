@@ -101,16 +101,14 @@ public class EmissionDisplayActivity extends AppCompatActivity {
 
         // Get user ID and current date
         String userId = mAuth.getCurrentUser().getUid();
-        //String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        // Display the current date
-        // If no date is passed, default to today's date
+
 
         String selectedDate = getIntent().getStringExtra("currentDate");
         if (selectedDate != null) {
             currentDate = selectedDate; // Use the updated date from CalendarActivityUI
 
         } else {
-            currentDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date()); // Use today's date
+            currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()); // Use today's date
         }
         tvDate.setText(currentDate);
 
