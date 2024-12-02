@@ -1,6 +1,9 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,10 +26,17 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         setContentView(R.layout.activity_carbon_footprint);
         FirebaseAuth auth = FirebaseAuth.getInstance();
         String userId = auth.getCurrentUser().getUid();
+        Button butt = findViewById(R.id.goToMain);
         databaseRef = FirebaseDatabase.getInstance().getReference("Users").child(userId);
         emissionsMap = new HashMap<>();
         populateEmissionsMap();
         calculateAndStoreCarbonFootprint();
+        butt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i =  new(CarbonFootprintActivity.this, EmissionDisplayAcitivity.class);
+            }
+        });
     }
 
     private void calculateAndStoreCarbonFootprint() {
