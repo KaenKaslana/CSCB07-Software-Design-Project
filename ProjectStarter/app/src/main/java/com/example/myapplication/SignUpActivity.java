@@ -39,7 +39,15 @@ public class SignUpActivity extends AppCompatActivity {
         editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
         buttonSignUp = findViewById(R.id.buttonSignUp);
         Button closeButton = findViewById(R.id.closeButton);
+        Button buttonLogin = findViewById(R.id.buttonLogin);
 
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(SignUpActivity.this, LoginActivity.class);
+                startActivity(in);
+            }
+        });
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
