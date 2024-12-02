@@ -31,10 +31,19 @@ public class LoginActivity extends AppCompatActivity {
         EditText passwordEditText = findViewById(R.id.loginPassword);
         Button loginButton = findViewById(R.id.loginButton);
         Button fr = findViewById(R.id.ForgotPasswordButton);
+        Button closeButton = findViewById(R.id.closeButton);
         fr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent in = new Intent(LoginActivity.this, ForgetPassword.class);
+                startActivity(in);
+            }
+        });
+
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(in);
             }
         });

@@ -29,7 +29,15 @@ public class ForgetPassword extends AppCompatActivity {
         send = findViewById(R.id.Send);
         email = findViewById(R.id.EmailAddress);
         auth = FirebaseAuth.getInstance();
+        Button closeButton = findViewById(R.id.closeButton);
 
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(ForgetPassword.this, LoginActivity.class);
+                startActivity(in);
+            }
+        });
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
