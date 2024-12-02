@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
@@ -50,4 +51,115 @@
 
         </activity>
     </application>
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MyApplication"
+        tools:targetApi="31">
+        <activity
+            android:name=".consumptionq4"
+            android:exported="false" />
+        <activity
+            android:name=".consumptionq3"
+            android:exported="false" />
+        <activity
+            android:name=".consumptionq2"
+            android:exported="false" />
+        <activity
+            android:name=".consumptionq1"
+            android:exported="false" />
+        <activity
+            android:name=".houseq7"
+            android:exported="false" />
+        <activity
+            android:name=".houseq6"
+            android:exported="false" />
+        <activity
+            android:name=".houseq5"
+            android:exported="false" />
+        <activity
+            android:name=".houseq4"
+            android:exported="false" />
+        <activity
+            android:name=".houseq3"
+            android:exported="false" />
+        <activity
+            android:name=".houseq2"
+            android:exported="false" />
+        <activity
+            android:name=".houseq1"
+            android:exported="false" />
+        <activity
+            android:name=".meatq4"
+            android:exported="false" />
+        <activity
+            android:name=".meatq3"
+            android:exported="false" />
+        <activity
+            android:name=".meatq2"
+            android:exported="false" />
+        <activity
+            android:name=".wasteq"
+            android:exported="false" />
+        <activity
+            android:name=".meatq1"
+            android:exported="false" />
+        <activity
+            android:name=".publictransportq2"
+            android:exported="false" />
+        <activity
+            android:name=".publictransportq1"
+            android:exported="false" />
+        <activity
+            android:name=".foodq1"
+            android:exported="false" />
+        <activity
+            android:name=".airtravelq2"
+            android:exported="false" />
+        <activity
+            android:name=".airtravelq1"
+            android:exported="false" />
+        <activity
+            android:name=".carq2"
+            android:exported="false" />
+        <activity
+            android:name=".carq1"
+            android:exported="false" />
+        <activity
+            android:name=".intro"
+            android:exported="true" />
+        <activity
+            android:name=".q1"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ForgetPassword"
+            android:exported="true" />
+        <activity android:name=".CarbonFootprintActivity"/>
+    </application>
+
+>>>>>>> feature/Alex/Questions
 </manifest>
