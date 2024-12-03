@@ -27,9 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Button login = findViewById(R.id.loginButton);
         Button signup = findViewById(R.id.signupButton);
-<<<<<<< HEAD
         VideoView videoView = findViewById(R.id.natureVideo);
-
 // Create a URI for the natureWalk.mp4 file
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.naturevideo);
 
@@ -44,9 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-=======
         FirebaseAuth.getInstance().signOut();
->>>>>>> feature/Alex/Questions
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

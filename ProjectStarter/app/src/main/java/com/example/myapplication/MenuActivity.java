@@ -86,14 +86,12 @@ public class MenuActivity extends AppCompatActivity {
         // Add OnChildClickListener to handle habit adoption
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
             String habit = (String) expandableListAdapter.getChild(groupPosition, childPosition);
-
             if (habit != null) {
                 if (!adoptedHabits.contains(habit)) {
                     adoptedHabits.add(habit);
-
-                    //String userId = "4ZQqEUzd28aWjrhrU5PrJTXid7Z2";
-                    String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    String userId = currentUser.getUid();
                     fetchDataForUser(userId);
+                    //String userId = "4ZQqEUzd28aWjrhrU5PrJTXid7Z2";
                     DatabaseReference habitsRef = FirebaseDatabase.getInstance()
                             .getReference("Users")
                             .child(userId)
@@ -116,7 +114,8 @@ public class MenuActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        //fetchDataForUser("4ZQqEUzd28aWjrhrU5PrJTXid7Z2");
+        String userId = currentUser.getUid();
+        fetchDataForUser(userId);
 
 
         trackHabitsButton.setOnClickListener(v -> {

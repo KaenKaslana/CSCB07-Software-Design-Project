@@ -34,7 +34,8 @@ public class CarbonFootprintActivity extends AppCompatActivity {
         butt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i =  new(CarbonFootprintActivity.this, EmissionDisplayAcitivity.class);
+                Intent i =  new Intent(CarbonFootprintActivity.this, EmissionDisplayActivity.class);
+                startActivity(i);
             }
         });
     }

@@ -46,6 +46,28 @@ public class EmissionDisplayActivity extends AppCompatActivity {
         btnDetailedActivityList = findViewById(R.id.btnDetailedActivityList);
         btnInputActivities = findViewById(R.id.btnInputActivities);
         Button calendarButton = findViewById(R.id.calendarButton);
+        Button gauge = findViewById(R.id.gauge);
+
+        gauge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(EmissionDisplayActivity.this, EcoGauge.class);
+                startActivity(i);
+            }
+        });
+
+        Button btnGoToMenu = findViewById(R.id.btnGoToMenu);
+        btnGoToMenu.setOnClickListener(v -> {
+            Intent intent = new Intent(EmissionDisplayActivity.this, MenuActivity.class);
+            startActivity(intent);
+            finish();
+        });
+        Button btnSaveProgress = findViewById(R.id.btnSaveProgress);
+        btnSaveProgress.setOnClickListener(v -> {
+            // Navigate to ProgressBarActivity
+            Intent intent = new Intent(EmissionDisplayActivity.this, ProgressBarActivity.class);
+            startActivity(intent);
+        });
 
 
 

@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">My Application</string>
-<<<<<<< HEAD
     <!-- Main Activity Types -->
     <string-array name="main_activity_types">
         <item>Transportation Activities</item>
@@ -65,6 +64,5 @@
         <item>Gas</item>
         <item>Water</item>
     </string-array>
-=======
->>>>>>> feature/Alex/Questions
+
 </resources>
