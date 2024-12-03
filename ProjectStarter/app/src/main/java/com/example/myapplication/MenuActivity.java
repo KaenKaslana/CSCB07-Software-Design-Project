@@ -68,9 +68,10 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_MyApplication_PageSpecific);
         setContentView(R.layout.activity_menu);
         FirebaseApp.initializeApp(this);
-        setTheme(R.style.Theme_MyApplication_PageSpecific);
+
 
         // Get current user
         FirebaseAuth auth = FirebaseAuth.getInstance();

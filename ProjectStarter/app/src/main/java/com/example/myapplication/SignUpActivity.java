@@ -78,6 +78,8 @@ public class SignUpActivity extends AppCompatActivity {
                                                 Toast.makeText(SignUpActivity.this, "Verification email sent. Please verify to complete registration.", Toast.LENGTH_SHORT).show();
                                                 // Store data, remove later since need to check email verification
                                                 storeUserData(user.getUid(), firstName, lastName, email);
+                                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Answered");
+                                                ref.setValue(false);
                                                 firebaseAuth.signOut();
                                                 // Change to Log in later
                                                 Intent intent = new Intent(SignUpActivity.this, MainActivity.class);

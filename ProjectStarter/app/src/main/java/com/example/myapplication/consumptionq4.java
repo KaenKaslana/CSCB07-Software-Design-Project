@@ -42,6 +42,8 @@ public class consumptionq4 extends AppCompatActivity {
 
         always = findViewById(R.id.opt4);
 
+        ref.child("Answered").setValue(true);
+
 
         never.setOnClickListener(new View.OnClickListener() {
             @Override

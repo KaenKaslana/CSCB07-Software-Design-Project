@@ -11,6 +11,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,6 +25,19 @@ public class intro extends AppCompatActivity {
         FirebaseAuth database = FirebaseAuth.getInstance();
         String userId = database.getCurrentUser().getUid();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+        DatabaseReference reff = ref.child("Answered");
+        reff.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DataSnapshot dataSnapshot = task.getResult();
+                if (dataSnapshot.exists()) {
+                    Boolean answered = dataSnapshot.getValue(Boolean.class);
+                    if (answered != null && answered) {
+                        Intent i = new Intent(intro.this, EmissionDisplayActivity.class);
+                        startActivity(i);
+                    }
+                }
+            }
+        });
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_intro);
