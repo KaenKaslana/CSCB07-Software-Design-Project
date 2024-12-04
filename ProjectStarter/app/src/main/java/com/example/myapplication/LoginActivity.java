@@ -20,69 +20,73 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
+    Presenter presenter;
+
+    EditText password;
+    EditText email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mAuth = FirebaseAuth.getInstance();
-        EditText emailEditText = findViewById(R.id.loginEmail);
-        EditText passwordEditText = findViewById(R.id.loginPassword);
-        Button loginButton = findViewById(R.id.loginButton);
-        Button fr = findViewById(R.id.ForgotPasswordButton);
-        Button closeButton = findViewById(R.id.closeButton);
-        fr.setOnClickListener(new View.OnClickListener() {
+        password = (EditText) findViewById(R.id.loginPassword);
+        email = (EditText) findViewById(R.id.loginEmail);
+        presenter = new Presenter(this, new Model());
+        Button login, forget, back;
+        login = findViewById(R.id.loginButton);
+        forget = findViewById(R.id.ForgotPasswordButton);
+        back =findViewById(R.id.closeButton);
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent in = new Intent(LoginActivity.this, ForgetPassword.class);
-                startActivity(in);
+                presenter.handleLogIn();
             }
         });
 
-        closeButton.setOnClickListener(new View.OnClickListener() {
+        forget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent in = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(in);
+                presenter.resetPass();
             }
         });
-        loginButton.setOnClickListener(new View.OnClickListener() {
+
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = emailEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
-                if (!email.isEmpty() && !password.isEmpty()) {
-                    mAuth.signInWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        FirebaseUser user = mAuth.getCurrentUser();
-                                        if (user != null && user.isEmailVerified()) {
-                                            //Login success
-                                            Log.d(TAG, "signInWithEmail:success");
-                                            Toast.makeText(LoginActivity.this, "Successfully Logged In", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(LoginActivity.this, intro.class);
-                                            startActivity(intent);
-                                            finish();
-                                        } else if (user != null) {
-                                            //Email not verified
-                                            Toast.makeText(LoginActivity.this, "Please verify your email before logging in.", Toast.LENGTH_LONG).show();
-                                            mAuth.signOut();
-                                        }
-                                    } else {
-                                        //Login failed
-                                        Log.e(TAG, "signInWithEmail:failure", task.getException());
-                                        Toast.makeText(LoginActivity.this, "Wrong Email/Password: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                }
-                else {
-                    Toast.makeText(LoginActivity.this, "Email and Password cannot be empty", Toast.LENGTH_SHORT).show();
-                }
+                presenter.back();
             }
         });
+
     }
+
+
+    public String getEmail(){
+        return email.getText().toString();
+    }
+
+    public String getPassword(){
+        return password.getText().toString();
+    }
+
+    public void startNew(){
+        Intent i = new Intent(LoginActivity.this, intro.class);
+        startActivity(i);
+    }
+
+    public void forgerPassword(){
+        Intent i = new Intent(LoginActivity.this, ForgetPassword.class);
+        startActivity(i);
+    }
+
+    public void back(){
+        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(i);
+    }
+
+    public void displayMessage(String message){
+        EditText text = findViewById(R.id.error);
+        text.setText(message);
+    }
+
+
 }

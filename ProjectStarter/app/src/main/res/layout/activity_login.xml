@@ -87,8 +87,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-
-
+    <EditText
+        android:id="@+id/error"
+        android:layout_width="317dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="104dp"
+        android:textSize="18sp"
+        android:background="@android:color/transparent"
+        android:textColor="@color/red"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/logo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
