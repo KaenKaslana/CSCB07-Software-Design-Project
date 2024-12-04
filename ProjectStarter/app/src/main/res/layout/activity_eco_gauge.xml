@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:padding="16dp">
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal">
+
+    <!-- Total Emissions Overview -->
+    <TextView
+        android:id="@+id/tv_total_emissions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Emissions: 0 kg CO2e this month"
+        android:textSize="18sp"
+        android:paddingBottom="16dp" />
+
+    <!-- Period Spinner -->
+    <Spinner
+        android:id="@+id/period_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:entries="@array/emission_periods" />
+
+
+    <!-- Selected Period -->
+    <TextView
+        android:id="@+id/tv_selected_period"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Viewing emissions: Daily"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Pie Chart for Emissions Breakdown -->
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pie_chart_emissions"
+        android:layout_width="match_parent"
+        android:layout_height="235dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Line Chart for Emissions Trend -->
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/line_chart_trend"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Comparison to Global or National Averages -->
+    <TextView
+        android:id="@+id/tv_global_comparison"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:text="Your emissions are 20% higher than the national average."
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:textColor="@android:color/black" />
+</LinearLayout>
+</ScrollView>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Display the current date -->
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date: 2024-11-27"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <!-- Display total daily CO2 emission -->
+    <TextView
+        android:id="@+id/tvDailyCO2Emission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Daily CO2 Emission: 0 kg"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp" />
+
+    <!-- Display transportation CO2 emission -->
+    <TextView
+        android:id="@+id/tvTransportationCO2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Transportation: 0 kg"
+        android:textSize="23sp"
+        android:layout_marginTop="12dp" />
+
+    <!-- Display food consumption CO2 emission -->
+    <TextView
+        android:id="@+id/tvFoodCO2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Food Consumption: 0 kg"
+        android:textSize="23sp"
+        android:layout_marginTop="8dp" />
+
+    <!-- Display consumption and shopping CO2 emission -->
+    <TextView
+        android:id="@+id/tvShoppingCO2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Consumption and Shopping: 0 kg"
+        android:textSize="23sp"
+        android:layout_marginTop="8dp" />
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="16dp" />
+
+    <!-- Buttons for additional actions -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal">
+
+        <!-- Button: Detailed Activity List -->
+        <Button
+            android:id="@+id/btnDetailedActivityList"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#009999"
+            android:text="Activity List"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:minHeight="56dp" />
+
+        <!-- Button: Calendar -->
+        <Button
+            android:id="@+id/calendarButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#009999"
+            android:text="Calendar"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:minHeight="56dp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnInputActivities"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#009999"
+            android:text="Add or Delete Activities"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnGoToMenu"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#009999"
+            android:text="Habits"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btnSaveProgress"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#009999"
+            android:text="Track Progress"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/gauge"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#009999"
+        android:text="Eco Gauge"
+        android:textSize="18sp" />
+
+</LinearLayout>

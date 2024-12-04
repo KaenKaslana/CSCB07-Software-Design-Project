@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -37,6 +38,16 @@ public class SignUpActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.editTextPassword);
         editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
         buttonSignUp = findViewById(R.id.buttonSignUp);
+        Button closeButton = findViewById(R.id.closeButton);
+
+
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(SignUpActivity.this, MainActivity.class);
+                startActivity(in);
+            }
+        });
 
         buttonSignUp.setOnClickListener(v -> {
             String firstName = editTextFirstName.getText().toString().trim();
@@ -67,6 +78,8 @@ public class SignUpActivity extends AppCompatActivity {
                                                 Toast.makeText(SignUpActivity.this, "Verification email sent. Please verify to complete registration.", Toast.LENGTH_SHORT).show();
                                                 // Store data, remove later since need to check email verification
                                                 storeUserData(user.getUid(), firstName, lastName, email);
+                                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid()).child("Answered");
+                                                ref.setValue(false);
                                                 firebaseAuth.signOut();
                                                 // Change to Log in later
                                                 Intent intent = new Intent(SignUpActivity.this, MainActivity.class);

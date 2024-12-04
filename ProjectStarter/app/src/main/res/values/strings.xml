@@ -1,3 +1,68 @@
 <resources>
     <string name="app_name">My Application</string>
+    <!-- Main Activity Types -->
+    <string-array name="main_activity_types">
+        <item>Transportation Activities</item>
+        <item>Food Consumption Activities</item>
+        <item>Consumption and Shopping Activities</item>
+    </string-array>
+
+    <!-- Transportation Activity Types -->
+    <string-array name="transportation_activity_types">
+        <item>Drive Personal Vehicle</item>
+        <item>Take Public Transportation</item>
+        <item>Cycling or Walking</item>
+        <item>Flight (Short-Haul or Long-Haul)</item>
+    </string-array>
+
+    <!-- Public Transportation Types -->
+    <string-array name="public_transport_types">
+        <item>Bus</item>
+        <item>Train</item>
+        <item>Subway</item>
+    </string-array>
+
+    <!-- Flight Types with Detailed Descriptions -->
+    <string-array name="flight_types_detailed">
+        <item>Short-Haul (&lt;1,500 km)</item>
+        <item>Long-Haul (&gt;1,500 km)</item>
+    </string-array>
+
+    <!-- Meal Types -->
+    <string-array name="meal_types">
+        <item>Beef</item>
+        <item>Pork</item>
+        <item>Chicken</item>
+        <item>Fish</item>
+        <item>Plant-Based</item>
+    </string-array>
+
+    <!-- Product Types for Shopping -->
+    <string-array name="product_types">
+        <item>Buy New Clothes</item>
+        <item>Buy Electronics</item>
+        <item>Other Purchases</item>
+        <item>Energy Bills</item>
+    </string-array>
+
+    <!-- Electronic Device Types (Modified to Match Instructions) -->
+    <string-array name="electronic_device_types">
+        <item>Smartphone</item>
+        <item>Laptop</item>
+        <item>TV</item>
+    </string-array>
+
+    <!-- Other Purchase Types (Modified to Match Instructions) -->
+    <string-array name="other_purchase_types">
+        <item>Furniture</item>
+        <item>Appliances</item>
+    </string-array>
+
+    <!-- Bill Types -->
+    <string-array name="bill_types">
+        <item>Electricity</item>
+        <item>Gas</item>
+        <item>Water</item>
+    </string-array>
+
 </resources>

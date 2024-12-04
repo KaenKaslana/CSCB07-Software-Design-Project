@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".CalendarActivityUI"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -21,15 +24,111 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity"
-            android:exported="true"/>
-        <activity android:name=".LoginActivity"
-            android:exported="true"/>
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".EcoTrackerActivity"
+            android:exported="true" />
+        <activity
+            android:name=".EmissionDisplayActivity"
+            android:exported="true" />
+        <activity
+            android:name=".DetailedActivityListActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ForgetPassword"
+            android:exported="true" />
+        <activity android:name=".MenuActivity"
+                    android:exported = "true"/>
 
-        <activity android:name=".ForgetPassword"
-            android:exported="true">
+
+
+        <activity android:name=".ProgressBarActivity">
+
         </activity>
+        <activity
+            android:name=".consumptionq4"
+            android:exported="false" />
+        <activity
+            android:name=".consumptionq3"
+            android:exported="false" />
+        <activity
+            android:name=".consumptionq2"
+            android:exported="false" />
+        <activity
+            android:name=".consumptionq1"
+            android:exported="false" />
+        <activity
+            android:name=".houseq7"
+            android:exported="false" />
+        <activity
+            android:name=".houseq6"
+            android:exported="false" />
+        <activity
+            android:name=".houseq5"
+            android:exported="false" />
+        <activity
+            android:name=".houseq4"
+            android:exported="false" />
+        <activity
+            android:name=".houseq3"
+            android:exported="false" />
+        <activity
+            android:name=".houseq2"
+            android:exported="false" />
+        <activity
+            android:name=".houseq1"
+            android:exported="false" />
+        <activity
+            android:name=".meatq4"
+            android:exported="false" />
+        <activity
+            android:name=".meatq3"
+            android:exported="false" />
+        <activity
+            android:name=".meatq2"
+            android:exported="false" />
+        <activity
+            android:name=".wasteq"
+            android:exported="false" />
+        <activity
+            android:name=".meatq1"
+            android:exported="false" />
+        <activity
+            android:name=".publictransportq2"
+            android:exported="false" />
+        <activity
+            android:name=".publictransportq1"
+            android:exported="false" />
+        <activity
+            android:name=".foodq1"
+            android:exported="false" />
+        <activity
+            android:name=".airtravelq2"
+            android:exported="false" />
+        <activity
+            android:name=".airtravelq1"
+            android:exported="false" />
+        <activity
+            android:name=".carq2"
+            android:exported="false" />
+        <activity
+            android:name=".carq1"
+            android:exported="false" />
+        <activity
+            android:name=".intro"
+            android:exported="true" />
+        <activity
+            android:name=".q1"
+            android:exported="false" />
+        <activity android:name=".CarbonFootprintActivity"/>
 
+        <activity android:name=".EcoGauge"
+            android:exported="true"/>
     </application>
 
 </manifest>

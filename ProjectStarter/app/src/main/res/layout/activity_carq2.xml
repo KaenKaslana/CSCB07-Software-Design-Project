@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".carq2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="256dp"
+            android:layout_height="205dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="How many kms do you drive a year?"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="3"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp">
+
+            <Button
+                android:id="@+id/atq1no"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                android:text="Up to 5000"
+                android:backgroundTint="#009999"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/ptq12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                android:text="5k-10k"
+                android:backgroundTint="#009999"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/ptq15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                android:text="10k-15k"
+                android:backgroundTint="#009999"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/ptq110"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                android:text="15k-20k"
+                android:backgroundTint="#009999"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/ptq1more"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                android:text="20k-25k"
+                android:backgroundTint="#009999"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/carq2more"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                android:text="More than 25k"
+                android:backgroundTint="#009999"
+                android:textSize="16sp" />
+
+        </GridLayout>
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

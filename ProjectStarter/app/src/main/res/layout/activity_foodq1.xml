@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".foodq1">
+
+    <!-- Title Text -->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="342dp"
+        android:layout_height="82dp"
+        android:layout_marginTop="254dp"
+        android:text="What best describes your diet?"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/opt1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Vegetarian Button -->
+    <Button
+        android:id="@+id/opt1"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_margin="8dp"
+        android:backgroundTint="#009999"
+        android:text="Vegetarian"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/opt2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <!-- Vegan Button -->
+    <Button
+        android:id="@+id/opt2"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_margin="8dp"
+        android:backgroundTint="#009999"
+        android:text="Vegan"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/opt1"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <!-- Logo -->
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="256dp"
+        android:layout_height="205dp"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Pescatarian Button -->
+    <Button
+        android:id="@+id/opt3"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_margin="8dp"
+        android:backgroundTint="#009999"
+        android:text="Pescatarian"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/opt4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/opt1" />
+
+    <!-- Meat-based Button -->
+    <Button
+        android:id="@+id/opt4"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_margin="8dp"
+        android:backgroundTint="#009999"
+        android:text="Meat-based"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/opt3"
+        app:layout_constraintTop_toBottomOf="@+id/opt2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
