@@ -95,15 +95,14 @@ public class ExampleUnitTest {
 
     @Test
     public void test_invoke(){
-        // Set up the mock behavior for the view
+       
         when(view.getEmail()).thenReturn("hello");
         when(view.getPassword()).thenReturn("hi");
 
         Presenter presenter = new Presenter(view, model);
-        // Call the method under test
+    
         presenter.handleLogIn();
 
-        // Verify that the model's login method was called with the correct arguments
         verify(model).login("hello", "hi", presenter);
     }
     @Test
