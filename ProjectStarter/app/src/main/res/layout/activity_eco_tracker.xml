@@ -277,6 +277,7 @@
         android:id="@+id/btnStoreInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#009999"
         android:layout_marginBottom="16dp"
         android:text="Input Data"
         app:layout_constraintBottom_toTopOf="@+id/btnDeleteInput"
@@ -286,6 +287,8 @@
     <!-- Delete Input Button -->
     <Button
         android:id="@+id/btnDeleteInput"
+        android:backgroundTint="#009999"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -298,6 +301,7 @@
     <Button
         android:id="@+id/btnCalculateEmission"
         android:layout_width="wrap_content"
+        android:backgroundTint="#009999"
         android:layout_height="wrap_content"
         android:layout_marginBottom="160dp"
         android:text="Daily CO2 Emission"

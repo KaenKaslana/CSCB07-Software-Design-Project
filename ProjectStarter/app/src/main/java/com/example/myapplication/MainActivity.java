@@ -28,11 +28,17 @@ public class MainActivity extends AppCompatActivity {
         Button login = findViewById(R.id.loginButton);
         Button signup = findViewById(R.id.signupButton);
         VideoView videoView = findViewById(R.id.natureVideo);
+
 // Create a URI for the natureWalk.mp4 file
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.naturevideo);
 
 // Set the video URI
         videoView.setVideoURI(uri);
+
+// Set an OnPreparedListener to mute the video
+        videoView.setOnPreparedListener(mp -> {
+            mp.setVolume(0f, 0f); // Mute the video
+        });
 
 // Set the video to loop by restarting it on completion
         videoView.setOnCompletionListener(mp -> videoView.start());
