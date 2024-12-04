@@ -369,8 +369,8 @@ public class EcoGauge extends AppCompatActivity {
             countryAverage = globalAverage; // Default to global if no national average
         }
 
-        float percentageOfCountry = (userEmission / countryAverage) * 100;
-        float percentageOfGlobal = (userEmission / globalAverage) * 100;
+        float percentageOfCountry = (userEmission / (countryAverage * 1000 / 365)) * 100;
+        float percentageOfGlobal = (userEmission / (globalAverage * 1000 / 365)) * 100;
 
         tvGlobalComparison.setText(String.format(
                 "Your emissions are %.2f%% of the average for %s.\n" +
