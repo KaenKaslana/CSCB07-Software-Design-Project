@@ -7,115 +7,100 @@
     android:layout_height="match_parent"
     tools:context=".carq2">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="342dp"
-        android:layout_height="82dp"
-        android:layout_marginTop="254dp"
-        android:layout_marginBottom="392dp"
-        android:text="How many kms do your drive a year?
-"
-        android:textSize="34dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.592"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
-    <Button
-        android:id="@+id/ptq12"
-        android:layout_width="132dp"
-        android:layout_height="82dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="#009999"
-        android:text="5k-10k"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/atq1no" />
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="256dp"
+            android:layout_height="205dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo" />
 
-    <Button
-        android:id="@+id/ptq15"
-        android:layout_width="132dp"
-        android:layout_height="82dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="#009999"
-        android:text="10k-15k"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.296"
-        app:layout_constraintStart_toEndOf="@+id/ptq12"
-        app:layout_constraintTop_toBottomOf="@+id/atq1no" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="How many kms do you drive a year?"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_gravity="center"/>
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="256dp"
-        android:layout_height="205dp"
-        android:src="@drawable/logo"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="3"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp">
 
-    <Button
-        android:id="@+id/ptq110"
-        android:layout_width="132dp"
-        android:layout_height="82dp"
-        android:layout_marginBottom="56dp"
-        android:backgroundTint="#009999"
-        android:text="15k-20k"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ptq1more"
-        app:layout_constraintHorizontal_bias="0.674"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ptq12"
-        app:layout_constraintVertical_bias="0.0" />
+            <Button
+                android:id="@+id/atq1no"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                android:text="Up to 5000"
+                android:backgroundTint="#009999"
+                android:textSize="16sp" />
 
-    <Button
-        android:id="@+id/ptq1more"
-        android:layout_width="132dp"
-        android:layout_height="82dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginBottom="52dp"
-        android:backgroundTint="#009999"
-        android:text="20k-25k"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ptq15"
-        app:layout_constraintVertical_bias="0.0" />
+            <Button
+                android:id="@+id/ptq12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                android:text="5k-10k"
+                android:backgroundTint="#009999"
+                android:textSize="16sp" />
 
-    <Button
-        android:id="@+id/atq1no"
-        android:layout_width="132dp"
-        android:layout_height="82dp"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="#009999"
-        android:text="Up to 5000"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <Button
+                android:id="@+id/ptq15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                android:text="10k-15k"
+                android:backgroundTint="#009999"
+                android:textSize="16sp" />
 
-    <Button
-        android:id="@+id/carq2more"
-        android:layout_width="132dp"
-        android:layout_height="82dp"
-        android:layout_marginBottom="56dp"
-        android:backgroundTint="#009999"
-        android:text="More than 25k"
+            <Button
+                android:id="@+id/ptq110"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                android:text="15k-20k"
+                android:backgroundTint="#009999"
+                android:textSize="16sp" />
 
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/atq1no"
-        app:layout_constraintVertical_bias="0.552" />
+            <Button
+                android:id="@+id/ptq1more"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                android:text="20k-25k"
+                android:backgroundTint="#009999"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/carq2more"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_columnWeight="1"
+                android:text="More than 25k"
+                android:backgroundTint="#009999"
+                android:textSize="16sp" />
+
+        </GridLayout>
+    </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

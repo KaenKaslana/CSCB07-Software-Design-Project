@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                                     } else {
                                         //Login failed
                                         Log.e(TAG, "signInWithEmail:failure", task.getException());
-                                        Toast.makeText(LoginActivity.this, "Wrong Email/Password: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
